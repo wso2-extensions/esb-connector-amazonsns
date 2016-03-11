@@ -1,0 +1,9 @@
+<setTopicAttributes>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <version></version>
+    <topicArn>%s(topicArn)INVALID</topicArn>
+    <attributeName>%s(attributeName)INVALID</attributeName>
+    <attributeValue></attributeValue>
+</setTopicAttributes>

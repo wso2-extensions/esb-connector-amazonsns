@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~  WSO2 Inc. licenses this file to you under the Apache License,
+ ~  Version 2.0 (the "License"); you may not use this file except
+ ~  in compliance with the License.
+ ~  You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~  Unless required by applicable law or agreed to in writing,
+ ~  software distributed under the License is distributed on an
+ ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~  KIND, either express or implied.  See the License for the
+ ~  specific language governing permissions and limitations
+ ~  under the License.
+-->
+<component name="amazonsns-platform" type="synapse/template">
+    <subComponents>
+        <component name="createPlatformApplication">
+            <file>createPlatformApplication.xml</file>
+            <description>Create a platform Application.</description>
+        </component>
+        <component name="getPlatformApplicationAttributes">
+            <file>getPlatformApplicationAttributes.xml</file>
+            <description>Retrieves the attributes of the platform application object for the supported push notification
+                services, such as APNS and GCM.
+            </description>
+        </component>
+        <component name="listPlatformApplications">
+            <file>listPlatformApplications.xml</file>
+            <description>Lists the PlatformApplications.</description>
+        </component>
+        <component name="deletePlatformApplication">
+            <file>deletePlatformApplication.xml</file>
+            <description>Deletes a platform application object for one of the supported push notification services,
+                such as APNS and GCM.
+            </description>
+        </component>
+        <component name="setPlatformApplicationAttributes">
+            <file>setPlatformApplicationAttributes.xml</file>
+            <description>Sets the attributes of the platform application object for the supported push notification
+                services,
+                such as APNS and GCM.
+            </description>
+        </component>
+    </subComponents>
+</component>

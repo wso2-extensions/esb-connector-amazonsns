@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~  WSO2 Inc. licenses this file to you under the Apache License,
+ ~  Version 2.0 (the "License"); you may not use this file except
+ ~  in compliance with the License.
+ ~  You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~  Unless required by applicable law or agreed to in writing,
+ ~  software distributed under the License is distributed on an
+ ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~  KIND, either express or implied.  See the License for the
+ ~  specific language governing permissions and limitations
+ ~  under the License.
+-->
+<component name="amazonsns-endpoint" type="synapse/template">
+    <subComponents>
+        <component name="createEndpoint">
+            <file>createEndpoint.xml</file>
+            <description>Creates an endpoint for a device and mobile app on one of the supported push notification
+                services.
+            </description>
+        </component>
+        <component name="deleteEndpoint">
+            <file>deleteEndpoint.xml</file>
+            <description>Deletes the endpoint from Amazon SNS.</description>
+        </component>
+        <component name="listEndpoints">
+            <file>listEndpoints.xml</file>
+            <description>Lists the endpoints.</description>
+        </component>
+        <component name="subscribe">
+            <file>subscribe.xml</file>
+            <description>Prepares to subscribe an endpoint by sending the endpoint a confirmation message.</description>
+        </component>
+        <component name="unsubscribe">
+            <file>unsubscribe.xml</file>
+            <description>Deletes a subscription.</description>
+        </component>
+        <component name="confirmSubscription">
+            <file>confirmSubscription.xml</file>
+            <description>Verify and confirm a subscription.</description>
+        </component>
+        <component name="listSubscriptions">
+            <file>listSubscriptions.xml</file>
+            <description>Lists the subscriptions.</description>
+        </component>
+        <component name="listSubscriptionsByTopic">
+            <file>listSubscriptionsByTopic.xml</file>
+            <description>Lists the subscriptions to a specific topic.</description>
+        </component>
+        <component name="getSubscriptionAttributes">
+            <file>getSubscriptionAttributes.xml</file>
+            <description>Returns all of the properties of a subscription.</description>
+        </component>
+        <component name="setSubscriptionAttributes">
+            <file>setSubscriptionAttributes.xml</file>
+            <description>Allows a subscription owner to set an attribute of the topic to a new value.</description>
+        </component>
+        <component name="getEndpointAttributes">
+            <file>getEndpointAttributes.xml</file>
+            <description>Retrieves the endpoint attributes for a device on one of the supported push notification
+                services,
+                such as GCM and APNS.
+            </description>
+        </component>
+        <component name="setEndpointAttributes">
+            <file>setEndpointAttributes.xml</file>
+            <description>Sets the attributes for an endpoint for a device on one of the supported push notification
+                services,
+                such as GCM and APNS.
+            </description>
+        </component>
+    </subComponents>
+</component>

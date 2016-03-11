@@ -1,0 +1,7 @@
+<getPlatformApplicationAttributes>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <platformApplicationArn>%s(platformApplicationArn)INVALID</platformApplicationArn>
+    <version></version>
+</getPlatformApplicationAttributes>
