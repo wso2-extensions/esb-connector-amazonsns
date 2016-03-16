@@ -1,0 +1,10 @@
+<addPermission>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <topicArn>%s(topicArn)</topicArn>
+    <label>%s(label)</label>
+    <actionNameMember>%s(actionNameMember)</actionNameMember>
+    <accountIdMember>%s(accountIdMember)</accountIdMember>
+    <version></version>
+</addPermission>

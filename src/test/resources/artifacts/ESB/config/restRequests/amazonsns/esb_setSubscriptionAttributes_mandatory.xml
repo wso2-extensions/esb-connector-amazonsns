@@ -1,0 +1,12 @@
+<setSubscriptionAttributes>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <version></version>
+    <subscriptionArn>%s(subscriptionAttributesArn)</subscriptionArn>
+    <attributeName>%s(attributeName)</attributeName>
+    <attributeValue></attributeValue>
+</setSubscriptionAttributes>
+
+
+

@@ -1,0 +1,8 @@
+<removePermission>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <topicArn>%s(topicArn)</topicArn>
+    <label>%s(label)</label>
+    <version></version>
+</removePermission>

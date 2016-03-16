@@ -1,0 +1,12 @@
+<setPlatformApplicationAttributes>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <version></version>
+    <platformApplicationArn>%s(platformApplicationArn)</platformApplicationArn>
+    <attributesEntryKey>%s(platformAttributesEntryKey)</attributesEntryKey>
+    <attributesEntryValue>%s(platformAttributesEntryValue)</attributesEntryValue>
+</setPlatformApplicationAttributes>
+
+
+

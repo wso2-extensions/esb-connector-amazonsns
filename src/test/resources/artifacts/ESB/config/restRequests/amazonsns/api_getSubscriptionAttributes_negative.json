@@ -1,0 +1,9 @@
+{
+  "accessKeyId": "%s(awsAccessKeyId)",
+  "secretAccessKey": "%s(awsSecretAccessKey)",
+  "signatureVersion": "4",
+  "signatureMethod": "HmacSHA256",
+  "action": "GetSubscriptionAttributes",
+  "region": "%s(region)",
+  "subscriptionArn": "%sINVALID(subscriptionAttributesArn)"
+}
