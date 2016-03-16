@@ -1,0 +1,11 @@
+{
+  "accessKeyId": "%s(awsAccessKeyId)",
+  "secretAccessKey": "%s(awsSecretAccessKey)",
+  "signatureVersion": "4",
+  "signatureMethod": "HmacSHA256",
+  "action": "SetTopicAttributes",
+  "region": "%s(region)",
+  "topicArn": "%s(topicArn)",
+  "attributeName": "%s(attributeName)",
+  "attributeValue": ""
+}

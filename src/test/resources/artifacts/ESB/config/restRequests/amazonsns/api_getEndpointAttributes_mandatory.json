@@ -1,0 +1,10 @@
+{
+  "accessKeyId": "%s(awsAccessKeyId)",
+  "secretAccessKey": "%s(awsSecretAccessKey)",
+  "signatureVersion": "4",
+  "signatureMethod": "HmacSHA256",
+  "action": "GetEndpointAttributes",
+  "region": "%s(region)",
+  "endpointArn": "%s(endpointArn)"
+}
+
