@@ -17,18 +17,14 @@
 -->
 <template name="deletePlatformApplication" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="platformApplicationArn"
-               description="PlatformApplicationArn of platform application object to delete."/>
-
+               description="PlatformApplication ARN of platform application object to delete."/>
     <sequence>
         <property name="uri.var.action" value="DeletePlatformApplication"/>
         <property name="uri.var.platformApplicationArn" expression="$func:platformApplicationArn"/>
-
         <class name="org.wso2.carbon.connector.amazonsns.auth.AmazonSNSAuthConnector"/>
-
         <!-- Add authorization and date header parameters -->
         <header name="Authorization" scope="transport" expression="get-property('uri.var.authorizationHeader')"/>
         <header name="x-amz-date" scope="transport" expression="get-property('uri.var.amzDate')"/>
-
         <payloadFactory media-type="json">
             <format>
                 $1
@@ -38,17 +34,14 @@
             </args>
         </payloadFactory>
         <property name="messageType" value="application/x-www-form-urlencoded" scope="axis2"/>
-
         <call>
             <endpoint>
                 <http method="post" uri-template="{uri.var.apiUrl}{+uri.var.httpRequestUri}"/>
             </endpoint>
         </call>
-
         <!-- Remove custom header information in response -->
         <header name="x-amzn-RequestId" scope="transport" action="remove"/>
         <header name="Via" scope="transport" action="remove"/>
-
     </sequence>
 </template>
 

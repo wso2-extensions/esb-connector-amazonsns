@@ -686,15 +686,14 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         final QName platformApplicationsQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "PlatformApplications");
         final QName platformApplicationArnQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "PlatformApplicationArn");
 
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
+        final Iterator apiMemberElemIterator =
                 apiRestResponse.getBody().getFirstElement().getFirstChildWithName(platformApplicationsQName).getChildElements();
 
         boolean memberFound = false;
-        OMElement selectedMember = null;
+        OMElement selectedMember;
 
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
+            selectedMember = (OMElement) apiMemberElemIterator.next();
 
             if (connectorProperties.getProperty("platformApplicationArn").equals(
                     selectedMember.getFirstChildWithName(platformApplicationArnQName).getText())) {
@@ -915,15 +914,14 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         final QName endpointsQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "Endpoints");
         final QName endpointArnQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "EndpointArn");
 
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
+        final Iterator apiMemberElemIterator =
                 apiRestResponse.getBody().getFirstElement().getFirstChildWithName(endpointsQName).getChildElements();
 
         boolean memberFound = false;
-        OMElement selectedMember = null;
+        OMElement selectedMember;
 
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
+            selectedMember = (OMElement) apiMemberElemIterator.next();
 
             if (connectorProperties.getProperty("endpointArn").equals(
                     selectedMember.getFirstChildWithName(endpointArnQName).getText())) {
@@ -963,34 +961,26 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         final QName keyQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "key");
         final QName valueQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "value");
 
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
+        final Iterator apiMemberElemIterator =
                 apiRestResponse.getBody().getFirstElement().getFirstChildWithName(endpointsQName).getChildElements();
-
         boolean memberFound = false;
-        OMElement selectedMember = null;
-
+        OMElement selectedMember;
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
-
-            @SuppressWarnings("unchecked")
-            Iterator<OMElement> entryIterator = selectedMember.getFirstChildWithName(attributeQName).getChildElements();
+            selectedMember = (OMElement) apiMemberElemIterator.next();
+            Iterator entryIterator = selectedMember.getFirstChildWithName(attributeQName).getChildElements();
             String entryValue = "";
-
             while (entryIterator.hasNext()) {
-                OMElement selectEntry = entryIterator.next();
+                OMElement selectEntry = (OMElement) entryIterator.next();
                 if ("CustomUserData".equals(selectEntry.getFirstChildWithName(keyQName).getText())) {
                     entryValue = selectEntry.getFirstChildWithName(valueQName).getText();
                 }
             }
-
             if (connectorProperties.getProperty("endpointArnOpt").equals(
                     selectedMember.getFirstChildWithName(endpointArnQName).getText())
                     && connectorProperties.getProperty("customUserData").equals(entryValue)) {
                 memberFound = true;
             }
         }
-
         Assert.assertTrue(memberFound);
     }
 
@@ -1151,27 +1141,20 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         final QName keyQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "key");
         final QName valueQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "value");
 
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
+        final Iterator apiMemberElemIterator =
                 apiRestResponse.getBody().getFirstElement().getFirstChildWithName(endpointsQName).getChildElements();
-
         boolean memberFound = false;
-        OMElement selectedMember = null;
-
+        OMElement selectedMember;
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
-
-            @SuppressWarnings("unchecked")
-            Iterator<OMElement> entryIterator = selectedMember.getFirstChildWithName(attributeQName).getChildElements();
+            selectedMember = (OMElement) apiMemberElemIterator.next();
+            Iterator entryIterator = selectedMember.getFirstChildWithName(attributeQName).getChildElements();
             String entryValue = "";
-
             while (entryIterator.hasNext()) {
-                OMElement selectEntry = entryIterator.next();
+                OMElement selectEntry = (OMElement) entryIterator.next();
                 if ("CustomUserData".equals(selectEntry.getFirstChildWithName(keyQName).getText())) {
                     entryValue = selectEntry.getFirstChildWithName(valueQName).getText();
                 }
             }
-
             if (connectorProperties.getProperty("setAttributesEntryValue").equals(entryValue)) {
                 memberFound = true;
             }
@@ -1227,23 +1210,17 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
 
         final QName endpointsQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "Endpoints");
         final QName endpointArnQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "EndpointArn");
-
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
+        final Iterator apiMemberElemIterator =
                 apiRestResponse.getBody().getFirstElement().getFirstChildWithName(endpointsQName).getChildElements();
-
         boolean memberFound = false;
-        OMElement selectedMember = null;
-
+        OMElement selectedMember;
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
-
+            selectedMember = (OMElement) apiMemberElemIterator.next();
             if (connectorProperties.getProperty("endpointArn").equals(
                     selectedMember.getFirstChildWithName(endpointArnQName).getText())) {
                 memberFound = true;
             }
         }
-
         Assert.assertFalse(memberFound);
     }
 
@@ -1282,35 +1259,26 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         esbRequestHeadersMap.put("Action", "urn:deletePlatformApplication");
         RestResponse<OMElement> esbRestResponse =
                 sendXmlRestRequest(proxyUrl, "POST", esbRequestHeadersMap, "esb_deletePlatformApplication_mandatory.xml");
-
         Thread.sleep(5000);
-
         generateApiRequest("api_deletePlatformApplication_mandatory.json");
         RestResponse<OMElement> apiRestResponse =
                 sendXmlRestRequest(apiEndPoint, "POST", apiRequestHeadersMap, "common_api_request.txt");
-
         Assert.assertEquals(esbRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
         final QName platformApplicationsQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "PlatformApplications");
         final QName platformApplicationArnQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "PlatformApplicationArn");
 
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
+        final Iterator apiMemberElemIterator =
                 apiRestResponse.getBody().getFirstElement().getFirstChildWithName(platformApplicationsQName).getChildElements();
-
         boolean memberFound = false;
-        OMElement selectedMember = null;
-
+        OMElement selectedMember;
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
-
+            selectedMember = (OMElement) apiMemberElemIterator.next();
             if (connectorProperties.getProperty("platformApplicationArn").equals(
                     selectedMember.getFirstChildWithName(platformApplicationArnQName).getText())) {
                 memberFound = true;
             }
         }
-
         Assert.assertFalse(memberFound);
     }
 
@@ -1457,27 +1425,20 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         final String subscriptionArn =
                 getValueByExpression("//*[local-name()='SubscriptionArn']/text()", esbRestResponse.getBody());
         connectorProperties.setProperty("subscriptionArnMandatory", subscriptionArn);
-
         Assert.assertNotEquals(subscriptionArn, "pending confirmation");
-
         final QName subscriptionsQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "Subscriptions");
         final QName subscriptionArnQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "SubscriptionArn");
-
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
+        final Iterator apiMemberElemIterator =
                 apiRestResponse.getBody().getFirstElement().getFirstChildWithName(subscriptionsQName)
                         .getChildElements();
-
         boolean memberFound = false;
-        OMElement selectedMember = null;
+        OMElement selectedMember;
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
-
+            selectedMember = (OMElement) apiMemberElemIterator.next();
             if (subscriptionArn.equals(selectedMember.getFirstChildWithName(subscriptionArnQName).getText())) {
                 memberFound = true;
             }
         }
-
         Assert.assertTrue(memberFound);
     }
 
@@ -1493,14 +1454,11 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         esbRequestHeadersMap.put("Action", "urn:confirmSubscription");
         final RestResponse<OMElement> esbRestResponse =
                 sendXmlRestRequest(proxyUrl, "POST", esbRequestHeadersMap, "esb_confirmSubscription_optional.xml");
-
         generateApiRequest("api_confirmSubscription_optional.json");
         final RestResponse<OMElement> apiRestResponse =
                 sendXmlRestRequest(apiEndPoint, "POST", apiRequestHeadersMap, "common_api_request.txt");
-
         Assert.assertEquals(esbRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
-
         final String subscriptionArn =
                 getValueByExpression("//*[local-name()='SubscriptionArn']/text()", esbRestResponse.getBody());
         connectorProperties.setProperty("subscriptionArnOptional", subscriptionArn);
@@ -1510,21 +1468,16 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
         final QName subscriptionsQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "Subscriptions");
         final QName subscriptionArnQName = new QName("http://sns.amazonaws.com/doc/2010-03-31/", "SubscriptionArn");
 
-        @SuppressWarnings("unchecked")
-        final Iterator<OMElement> apiMemberElemIterator =
-                apiRestResponse.getBody().getFirstElement().getFirstChildWithName(subscriptionsQName)
-                        .getChildElements();
-
+        final Iterator apiMemberElemIterator =
+                apiRestResponse.getBody().getFirstElement().getFirstChildWithName(subscriptionsQName).getChildElements();
         boolean memberFound = false;
-        OMElement selectedMember = null;
+        OMElement selectedMember;
         while (apiMemberElemIterator.hasNext()) {
-            selectedMember = apiMemberElemIterator.next();
-
+            selectedMember = (OMElement) apiMemberElemIterator.next();
             if (subscriptionArn.equals(selectedMember.getFirstChildWithName(subscriptionArnQName).getText())) {
                 memberFound = true;
             }
         }
-
         Assert.assertTrue(memberFound);
     }
 
@@ -1603,11 +1556,11 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
      * Generate API request.
      *
      * @param signatureRequestFile the signature request file
-     * @throws IOException              Signals that an I/O exception has occurred.
-     * @throws JSONException            the jSON exception
-     * @throws InvalidKeyException      the invalid key exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws JSONException the jSON exception
+     * @throws InvalidKeyException the invalid key exception
      * @throws NoSuchAlgorithmException the no such algorithm exception
-     * @throws IllegalStateException    the illegal state exception
+     * @throws IllegalStateException the illegal state exception
      */
     public void generateApiRequest(String signatureRequestFile) throws IOException, JSONException, InvalidKeyException,
             NoSuchAlgorithmException, IllegalStateException {
@@ -1662,7 +1615,7 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
      */
     private String getFileContent(String path) throws IOException {
 
-        String fileContent = null;
+        String fileContent;
         BufferedInputStream bfist = new BufferedInputStream(new FileInputStream(path));
 
         byte[] buf = new byte[bfist.available()];

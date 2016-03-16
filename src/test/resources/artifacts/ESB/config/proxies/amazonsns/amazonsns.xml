@@ -53,13 +53,14 @@
             <property name="label" expression="//label/text()"/>
             <property name="actionNameMember" expression="//actionNameMember/text()"/>
             <property name="accountIdMember" expression="//accountIdMember/text()"/>
-
+            <property name="enableSSL" expression="//enableSSL/text()"/>
             <amazonsns.init>
                 <secretAccessKey>{$ctx:secretAccessKey}</secretAccessKey>
                 <accessKeyId>{$ctx:accessKeyId}</accessKeyId>
                 <securityToken>{$ctx:securityToken}</securityToken>
                 <version>{$ctx:version}</version>
                 <region>{$ctx:region}</region>
+                <enableSSL>{$ctx:enableSSL}</enableSSL>
             </amazonsns.init>
             <switch source="get-property('transport', 'Action')">
                 <case regex="urn:subscribe">

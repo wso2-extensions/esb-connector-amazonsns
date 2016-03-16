@@ -19,19 +19,15 @@
     <parameter name="topicArn" description="The ARN of the topic to modify."/>
     <parameter name="attributeName" description="The name of the attribute you want to set."/>
     <parameter name="attributeValue" description="The new value for the attribute in JSON format"/>
-
     <sequence>
         <property name="uri.var.action" value="SetTopicAttributes"/>
         <property name="uri.var.topicArn" expression="$func:topicArn"/>
         <property name="uri.var.attributeName" expression="$func:attributeName"/>
         <property name="uri.var.attributeValue" expression="$func:attributeValue"/>
-
         <class name="org.wso2.carbon.connector.amazonsns.auth.AmazonSNSAuthConnector"/>
-
         <!-- Add authorization and date header parameters -->
         <header name="Authorization" scope="transport" expression="get-property('uri.var.authorizationHeader')"/>
         <header name="x-amz-date" scope="transport" expression="get-property('uri.var.amzDate')"/>
-
         <payloadFactory media-type="json">
             <format>
                 $1
@@ -41,16 +37,13 @@
             </args>
         </payloadFactory>
         <property name="messageType" value="application/x-www-form-urlencoded" scope="axis2"/>
-
         <call>
             <endpoint>
                 <http method="post" uri-template="{uri.var.apiUrl}{+uri.var.httpRequestUri}"/>
             </endpoint>
         </call>
-
         <!-- Remove custom header information in response -->
         <header name="x-amzn-RequestId" scope="transport" action="remove"/>
         <header name="Via" scope="transport" action="remove"/>
-
     </sequence>
 </template>

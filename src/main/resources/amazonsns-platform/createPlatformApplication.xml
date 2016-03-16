@@ -20,20 +20,16 @@
     <parameter name="attributesEntryValue" description="For a list of attributes(For GCM app apiKey will be given)."/>
     <parameter name="name" description="Name of the Application."/>
     <parameter name="platform" description="Platform name (GCM)."/>
-
     <sequence>
         <property name="uri.var.action" value="CreatePlatformApplication"/>
         <property name="uri.var.attributesEntryKey" expression="$func:attributesEntryKey"/>
         <property name="uri.var.attributesEntryValue" expression="$func:attributesEntryValue"/>
         <property name="uri.var.name" expression="$func:name"/>
         <property name="uri.var.platform" expression="$func:platform"/>
-
         <class name="org.wso2.carbon.connector.amazonsns.auth.AmazonSNSAuthConnector"/>
-
         <!-- Add authorization and date header parameters -->
         <header name="Authorization" scope="transport" expression="get-property('uri.var.authorizationHeader')"/>
         <header name="x-amz-date" scope="transport" expression="get-property('uri.var.amzDate')"/>
-
         <payloadFactory media-type="json">
             <format>
                 $1
@@ -43,17 +39,14 @@
             </args>
         </payloadFactory>
         <property name="messageType" value="application/x-www-form-urlencoded" scope="axis2"/>
-
         <call>
             <endpoint>
                 <http method="post" uri-template="{uri.var.apiUrl}{+uri.var.httpRequestUri}"/>
             </endpoint>
         </call>
-
         <!-- Remove custom header information in response -->
         <header name="x-amzn-RequestId" scope="transport" action="remove"/>
         <header name="Via" scope="transport" action="remove"/>
-
     </sequence>
 </template>
 

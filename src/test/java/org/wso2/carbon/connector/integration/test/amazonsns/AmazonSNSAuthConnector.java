@@ -18,8 +18,6 @@
 
 package org.wso2.carbon.connector.integration.test.amazonsns;
 
-import org.apache.synapse.MessageContext;
-import org.apache.synapse.SynapseConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,9 +41,27 @@ import java.util.Map.Entry;
 public class AmazonSNSAuthConnector {
 
     /**
+     * bytesToHex method HexEncoded the received byte array.
+     *
+     * @param bytes bytes to be hex encoded
+     * @return hex encoded String of the given byte array
+     */
+    public static String bytesToHex(final byte[] bytes) {
+
+        final char[] hexArray = AmazonSNSConstants.HEX_ARRAY_STRING.toCharArray();
+        char[] hexChars = new char[bytes.length * 2];
+
+        for (int j = 0; j < bytes.length; j++) {
+            final int byteVal = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[byteVal >>> 4];
+            hexChars[j * 2 + 1] = hexArray[byteVal & 0x0F];
+        }
+        return new String(hexChars);
+    }
+
+    /**
      * Connect method which is generating authentication of the connector for each request.
      *
-     * @param messageContext ESB messageContext.
      * @throws UnsupportedEncodingException
      * @throws IllegalStateException
      * @throws NoSuchAlgorithmException
@@ -270,19 +286,17 @@ public class AmazonSNSAuthConnector {
         final String[] singleValuedKeys = getParameterKeys();
         final Map<String, String> parametersMap = new TreeMap<String, String>();
         // Stores sorted, single valued API parameters
-        for (byte index = 0; index < singleValuedKeys.length; index++) {
-            final String key = singleValuedKeys[index];
+        for (final String key : singleValuedKeys) {
             // builds the parameter map only if provided by the user
-            if (signatureRequestObject.has(key) && !("").equals((String) signatureRequestObject.get(key))) {
+            if (signatureRequestObject.has(key) && !("").equals(signatureRequestObject.get(key))) {
                 parametersMap.put(namesMap.get(key), (String) signatureRequestObject.get(key));
             }
         }
         final String[] multiValuedKeys = getMultivaluedParameterKeys();
         // Stores sorted, multi-valued API parameters
-        for (byte index = 0; index < multiValuedKeys.length; index++) {
-            final String key = multiValuedKeys[index];
+        for (final String key : multiValuedKeys) {
             // builds the parameter map only if provided by the user
-            if (signatureRequestObject.has(key) && !("").equals((String) signatureRequestObject.get(key))) {
+            if (signatureRequestObject.has(key) && !("").equals(signatureRequestObject.get(key))) {
                 final String collectionParam = (String) signatureRequestObject.get(key);
                 // Splits the collection parameter to retrieve parameters separately
                 final String[] keyValuepairs = collectionParam.split(AmazonSNSConstants.AMPERSAND);
@@ -315,10 +329,9 @@ public class AmazonSNSAuthConnector {
         final String[] headerKeys = getHeaderKeys();
         final Map<String, String> parametersMap = new TreeMap<String, String>();
         // Stores sorted, single valued API parameters
-        for (byte index = 0; index < headerKeys.length; index++) {
-            final String key = headerKeys[index];
+        for (final String key : headerKeys) {
             // builds the parameter map only if provided by the user
-            if (signatureRequestObject.has(key) && !("").equals((String) signatureRequestObject.get(key))) {
+            if (signatureRequestObject.has(key) && !("").equals(signatureRequestObject.get(key))) {
                 parametersMap.put(namesMap.get(key).toLowerCase(), signatureRequestObject.get(key).toString().trim()
                         .replaceAll(AmazonSNSConstants.TRIM_SPACE_REGEX, AmazonSNSConstants.SPACE));
             }
@@ -377,39 +390,8 @@ public class AmazonSNSAuthConnector {
     }
 
     /**
-     * Add a Throwable to a message context, the message from the throwable is embedded as the Synapse. Constant
-     * ERROR_MESSAGE.
-     *
-     * @param ctxt  message context to which the error tags need to be added
-     * @param throwable Throwable that needs to be parsed and added
-     * @param errorCode errorCode mapped to the exception
-     */
-    public final void storeErrorResponseStatus(final MessageContext ctxt, final Throwable throwable, final int errorCode) {
-
-        ctxt.setProperty(SynapseConstants.ERROR_CODE, errorCode);
-        ctxt.setProperty(SynapseConstants.ERROR_MESSAGE, throwable.getMessage());
-        ctxt.setFaultResponse(true);
-    }
-
-    /**
-     * Add a message to message context, the message from the throwable is embedded as the Synapse Constant
-     * ERROR_MESSAGE.
-     *
-     * @param ctxt message context to which the error tags need to be added
-     * @param message message to be returned to the user
-     * @param errorCode errorCode mapped to the exception
-     */
-    public final void storeErrorResponseStatus(final MessageContext ctxt, final String message, final int errorCode) {
-
-        ctxt.setProperty(SynapseConstants.ERROR_CODE, errorCode);
-        ctxt.setProperty(SynapseConstants.ERROR_MESSAGE, message);
-        ctxt.setFaultResponse(true);
-    }
-
-    /**
      * Hashes the string contents (assumed to be UTF-8) using the SHA-256 algorithm.
      *
-     * @param messageContext of the connector
      * @param text text to be hashed
      * @return SHA-256 hashed text
      * @throws NoSuchAlgorithmException
@@ -417,29 +399,10 @@ public class AmazonSNSAuthConnector {
      */
     public final byte[] hash(final String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-        MessageDigest messageDigest = null;
+        MessageDigest messageDigest;
         messageDigest = MessageDigest.getInstance(AmazonSNSConstants.SHA_256);
         messageDigest.update(text.getBytes(AmazonSNSConstants.UTF_8));
         return messageDigest.digest();
-    }
-
-    /**
-     * bytesToHex method HexEncoded the received byte array.
-     *
-     * @param bytes bytes to be hex encoded
-     * @return hex encoded String of the given byte array
-     */
-    public static String bytesToHex(final byte[] bytes) {
-
-        final char[] hexArray = AmazonSNSConstants.HEX_ARRAY_STRING.toCharArray();
-        char[] hexChars = new char[bytes.length * 2];
-
-        for (int j = 0; j < bytes.length; j++) {
-            final int byteVal = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[byteVal >>> 4];
-            hexChars[j * 2 + 1] = hexArray[byteVal & 0x0F];
-        }
-        return new String(hexChars);
     }
 
     /**
@@ -481,7 +444,6 @@ public class AmazonSNSAuthConnector {
      */
     private byte[] hmacSHA256(final byte[] key, final String data) throws NoSuchAlgorithmException,
             InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
-
         final String algorithm = AmazonSNSConstants.HAMC_SHA_256;
         final Mac mac = Mac.getInstance(algorithm);
         mac.init(new SecretKeySpec(key, algorithm));

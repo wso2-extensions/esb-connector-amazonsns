@@ -17,17 +17,13 @@
 -->
 <template name="deleteTopic" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="topicArn" description="The ARN of the topic you want to delete."/>
-
     <sequence>
         <property name="uri.var.action" value="DeleteTopic"/>
         <property name="uri.var.topicArn" expression="$func:topicArn"/>
-
         <class name="org.wso2.carbon.connector.amazonsns.auth.AmazonSNSAuthConnector"/>
-
         <!-- Add authorization and date header parameters -->
         <header name="Authorization" scope="transport" expression="get-property('uri.var.authorizationHeader')"/>
         <header name="x-amz-date" scope="transport" expression="get-property('uri.var.amzDate')"/>
-
         <payloadFactory media-type="json">
             <format>
                 $1
@@ -42,10 +38,8 @@
                 <http method="post" uri-template="{uri.var.apiUrl}{+uri.var.httpRequestUri}"/>
             </endpoint>
         </call>
-
         <!-- Remove custom header information in response -->
         <header name="x-amzn-RequestId" scope="transport" action="remove"/>
         <header name="Via" scope="transport" action="remove"/>
-
     </sequence>
 </template>

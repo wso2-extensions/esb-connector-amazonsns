@@ -41,7 +41,6 @@ import java.util.*;
  */
 
 public class AmazonSNSAuthConnector extends AbstractConnector {
-
     /**
      * Connect method which is generating authentication of the connector for each request.
      *
@@ -133,7 +132,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
             String requestPayload = "";
             if (payloadBuilder.length() > 0) {
                 /*
-                 * First removes the additional ampersand appended to the end of the payloadBuilder, then o
+                 * First removes the additional comma appended to the end of the payloadBuilder, then
                  * further modifications to preserve unreserved characters as per the API guide
                  * (http://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html)
                  */
@@ -167,7 +166,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                                     .toString(), shortDate, messageContext.getProperty(AmazonSNSConstants.REGION).toString(),
                             messageContext.getProperty(AmazonSNSConstants.SERVICE).toString());
 
-            // Construction of authorization header value to be in cluded in API request
+            // Construction of authorization header value to be included in API request
             authHeader.append(AmazonSNSConstants.AWS4_HMAC_SHA_256);
             authHeader.append(AmazonSNSConstants.COMMA);
             authHeader.append(AmazonSNSConstants.CREDENTIAL);
@@ -231,7 +230,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                 AmazonSNSConstants.ATTRIBUTES_ENTRY_VALUE, AmazonSNSConstants.ENDPOINT_ARN,
                 AmazonSNSConstants.CUSTOM_USER_DATA, AmazonSNSConstants.ATTRIBUTE_NAME,
                 AmazonSNSConstants.ATTRIBUTE_VALUE, AmazonSNSConstants.LABEL,
-                AmazonSNSConstants.ACTION_NAME_MEMBER, AmazonSNSConstants.ACCOUNT_ID_MEMBER};
+                AmazonSNSConstants.ACTION_NAME_MEMBER, AmazonSNSConstants.ACCOUNT_ID_MEMBER };
     }
 
     /**
@@ -241,7 +240,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
      */
     private String[] getHeaderKeys() {
 
-        return new String[]{AmazonSNSConstants.HOST, AmazonSNSConstants.CONTENT_TYPE, AmazonSNSConstants.AMZ_DATE,};
+        return new String[]{AmazonSNSConstants.HOST, AmazonSNSConstants.CONTENT_TYPE, AmazonSNSConstants.AMZ_DATE};
     }
 
     /**
@@ -260,7 +259,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
      * getParametersMap method used to return list of parameter values sorted by expected API parameter names.
      *
      * @param messageContext ESB messageContext.
-     * @param namesMap       contains a map of esb parameter names and matching API parameter names
+     * @param namesMap contains a map of esb parameter names and matching API parameter names
      * @return assigned parameter values as a HashMap.
      */
     private Map<String, String> getSortedParametersMap(final MessageContext messageContext,
@@ -269,20 +268,18 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
         final String[] singleValuedKeys = getParameterKeys();
         final Map<String, String> parametersMap = new TreeMap<String, String>();
         // Stores sorted, single valued API parameters
-        for (byte index = 0; index < singleValuedKeys.length; index++) {
-            final String key = singleValuedKeys[index];
+        for (final String key : singleValuedKeys) {
             // builds the parameter map only if provided by the user
-            if (messageContext.getProperty(key) != null && !("").equals((String) messageContext.getProperty(key))) {
+            if (messageContext.getProperty(key) != null && !("").equals(messageContext.getProperty(key))) {
                 parametersMap.put(namesMap.get(key), (String) messageContext.getProperty(key));
             }
         }
 
         final String[] multiValuedKeys = getMultivaluedParameterKeys();
         // Stores sorted, multi-valued API parameters
-        for (byte index = 0; index < multiValuedKeys.length; index++) {
-            final String key = multiValuedKeys[index];
+        for (final String key : multiValuedKeys) {
             // builds the parameter map only if provided by the user
-            if (messageContext.getProperty(key) != null && !("").equals((String) messageContext.getProperty(key))) {
+            if (messageContext.getProperty(key) != null && !("").equals(messageContext.getProperty(key))) {
                 final String collectionParam = (String) messageContext.getProperty(key);
                 // Splits the collection parameter to retrieve parameters separately
                 final String[] keyValuepairs = collectionParam.split(AmazonSNSConstants.AMPERSAND);
@@ -299,7 +296,6 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                     }
                 }
             }
-
         }
         return parametersMap;
     }
@@ -308,7 +304,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
      * getSortedHeadersMap method used to return list of header values sorted by expected API parameter names.
      *
      * @param messageContext ESB messageContext.
-     * @param namesMap       contains a map of esb parameter names and matching API parameter names
+     * @param namesMap  contains a map of esb parameter names and matching API parameter names
      * @return assigned header values as a HashMap.
      */
     private Map<String, String> getSortedHeadersMap(final MessageContext messageContext,
@@ -317,10 +313,9 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
         final String[] headerKeys = getHeaderKeys();
         final Map<String, String> parametersMap = new TreeMap<String, String>();
         // Stores sorted, single valued API parameters
-        for (byte index = 0; index < headerKeys.length; index++) {
-            final String key = headerKeys[index];
+        for (final String key : headerKeys) {
             // builds the parameter map only if provided by the user
-            if (messageContext.getProperty(key) != null && !("").equals((String) messageContext.getProperty(key))) {
+            if (messageContext.getProperty(key) != null && !("").equals(messageContext.getProperty(key))) {
                 parametersMap.put(namesMap.get(key).toLowerCase(), messageContext.getProperty(key).toString().trim()
                         .replaceAll(AmazonSNSConstants.TRIM_SPACE_REGEX, AmazonSNSConstants.SPACE));
             }
@@ -381,7 +376,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
      * Add a Throwable to a message context, the message from the throwable is embedded as the Synapse.
      * Constant ERROR_MESSAGE.
      *
-     * @param ctxt      message context to which the error tags need to be added
+     * @param ctxt message context to which the error tags need to be added
      * @param throwable Throwable that needs to be parsed and added
      * @param errorCode errorCode mapped to the exception
      */
@@ -396,7 +391,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
      * Add a message to message context, the message from the throwable is embedded as the Synapse Constant
      * ERROR_MESSAGE.
      *
-     * @param ctxt      message context to which the error tags need to be added
+     * @param ctxt message context to which the error tags need to be added
      * @param message   message to be returned to the user
      * @param errorCode errorCode mapped to the exception
      */
@@ -411,7 +406,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
      * Hashes the string contents (assumed to be UTF-8) using the SHA-256 algorithm.
      *
      * @param messageContext of the connector
-     * @param text           text to be hashed
+     * @param text text to be hashed
      * @return SHA-256 hashed text
      */
     public final byte[] hash(final MessageContext messageContext, final String text) {
@@ -460,10 +455,10 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
      * @param key  to use for encoding
      * @param data to be encoded
      * @return HMAC SHA 256 encoded byte array
-     * @throws NoSuchAlgorithmException     No such algorithm Exception
-     * @throws InvalidKeyException          Invalid key Exception
+     * @throws NoSuchAlgorithmException No such algorithm Exception
+     * @throws InvalidKeyException Invalid key Exception
      * @throws UnsupportedEncodingException Unsupported Encoding Exception
-     * @throws IllegalStateException        Illegal State Exception
+     * @throws IllegalStateException Illegal State Exception
      */
     private static byte[] hmacSHA256(final byte[] key, final String data) throws NoSuchAlgorithmException,
             InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
@@ -477,16 +472,16 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
     /**
      * Returns the encoded signature key to be used for further encodings as per API doc.
      *
-     * @param ctx         message context of the connector
-     * @param key         key to be used for signing
-     * @param dateStamp   current date stamp
+     * @param ctx message context of the connector
+     * @param key key to be used for signing
+     * @param dateStamp current date stamp
      * @param regionName  region name given to the connector
      * @param serviceName Name of the service being addressed
      * @return Signature key
      * @throws UnsupportedEncodingException Unsupported Encoding Exception
-     * @throws IllegalStateException        Illegal Argument Exception
-     * @throws NoSuchAlgorithmException     No Such Algorithm Exception
-     * @throws InvalidKeyException          Invalid Key Exception
+     * @throws IllegalStateException  Illegal Argument Exception
+     * @throws NoSuchAlgorithmException No Such Algorithm Exception
+     * @throws InvalidKeyException  Invalid Key Exception
      */
     private static byte[] getSignatureKey(final MessageContext ctx, final String key, final String dateStamp,
                                           final String regionName, final String serviceName) throws UnsupportedEncodingException,
