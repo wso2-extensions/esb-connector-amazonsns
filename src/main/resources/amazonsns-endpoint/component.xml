@@ -20,8 +20,7 @@
     <subComponents>
         <component name="createEndpoint">
             <file>createEndpoint.xml</file>
-            <description>Creates an endpoint for a device and mobile app on one of the supported push notification
-                services.
+            <description>Creates an endpoint for a device and mobile app on one of the supported push notification services.
             </description>
         </component>
         <component name="deleteEndpoint">
@@ -63,15 +62,13 @@
         <component name="getEndpointAttributes">
             <file>getEndpointAttributes.xml</file>
             <description>Retrieves the endpoint attributes for a device on one of the supported push notification
-                services,
-                such as GCM and APNS.
+                services,such as GCM and APNS.
             </description>
         </component>
         <component name="setEndpointAttributes">
             <file>setEndpointAttributes.xml</file>
             <description>Sets the attributes for an endpoint for a device on one of the supported push notification
-                services,
-                such as GCM and APNS.
+                services,such as GCM and APNS.
             </description>
         </component>
     </subComponents>
