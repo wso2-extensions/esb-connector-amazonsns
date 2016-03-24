@@ -1,0 +1,10 @@
+<createPlatformApplication>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <version></version>
+    <attributesEntryKey>%s(attributesEntryKey)</attributesEntryKey>
+    <attributesEntryValue>%s(attributesEntryValue)</attributesEntryValue>
+    <platform>%s(platform)</platform>
+    <name>%s(platformName)</name>
+</createPlatformApplication>

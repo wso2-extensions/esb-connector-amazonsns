@@ -1,0 +1,9 @@
+<subscribe>
+   <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+   <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+   <region>%s(region)</region>
+   <topicArn>INVALID%s(topicArn)</topicArn>
+   <protocol>email</protocol>
+   <endpoint>%s(endpoint)</endpoint>
+   <version></version>
+</subscribe>

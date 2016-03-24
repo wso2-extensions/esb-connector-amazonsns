@@ -1,0 +1,12 @@
+{
+  "accessKeyId": "%s(awsAccessKeyId)",
+  "secretAccessKey": "%s(awsSecretAccessKey)",
+  "signatureVersion": "4",
+  "signatureMethod": "HmacSHA256",
+  "action": "AddPermission",
+  "region": "%s(region)",
+  "topicArn": "%s(topicArn)INVALID",
+  "label": "%s(label)INVALID",
+  "actionNameMember": "%s(actionNameMember)INVALID",
+  "accountIdMember": "%s(accountIdMember)INVALID"
+}

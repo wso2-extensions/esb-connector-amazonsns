@@ -1,0 +1,6 @@
+<deletePlatformApplication>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <version></version>
+</deletePlatformApplication>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~  WSO2 Inc. licenses this file to you under the Apache License,
+ ~  Version 2.0 (the "License"); you may not use this file except
+ ~  in compliance with the License.
+ ~  You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~  Unless required by applicable law or agreed to in writing,
+ ~  software distributed under the License is distributed on an
+ ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~  KIND, either express or implied.  See the License for the
+ ~  specific language governing permissions and limitations
+ ~  under the License.
+-->
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="amazonsns"
+       transports="https,http"
+       statistics="disable"
+       trace="disable"
+       startOnLoad="true">
+    <target>
+        <inSequence>
+            <property name="accessKeyId" expression="//accessKeyId/text()"/>
+            <property name="secretAccessKey" expression="//secretAccessKey/text()"/>
+            <property name="securityToken" expression="//securityToken/text()"/>
+            <property name="version" expression="//version/text()"/>
+            <property name="region" expression="//region/text()"/>
+            <property name="topicArn" expression="//topicArn/text()"/>
+            <property name="protocol" expression="//protocol/text()"/>
+            <property name="endpoint" expression="//endpoint/text()"/>
+            <property name="nextToken" expression="//nextToken/text()"/>
+            <property name="attributeValue" expression="//attributeValue/text()"/>
+            <property name="attributeName" expression="//attributeName/text()"/>
+            <property name="token" expression="//token/text()"/>
+            <property name="authenticateOnUnsubscribe" expression="//authenticateOnUnsubscribe/text()"/>
+            <property name="subscriptionArn" expression="//subscriptionArn/text()"/>
+            <property name="customUserData" expression="//customUserData/text()"/>
+            <property name="platformApplicationArn" expression="//platformApplicationArn/text()"/>
+            <property name="platform" expression="//platform/text()"/>
+            <property name="token" expression="//token/text()"/>
+            <property name="endpointArn" expression="//endpointArn/text()"/>
+            <property name="name" expression="//name/text()"/>
+            <property name="message" expression="//message/text()"/>
+            <property name="subject" expression="//subject/text()"/>
+            <property name="messageStructure" expression="//messageStructure/text()"/>
+            <property name="targetArn" expression="//targetArn/text()"/>
+            <property name="attributesEntryKey" expression="//attributesEntryKey/text()"/>
+            <property name="attributesEntryValue" expression="//attributesEntryValue/text()"/>
+            <property name="label" expression="//label/text()"/>
+            <property name="actionNameMember" expression="//actionNameMember/text()"/>
+            <property name="accountIdMember" expression="//accountIdMember/text()"/>
+            <property name="enableSSL" expression="//enableSSL/text()"/>
+            <amazonsns.init>
+                <secretAccessKey>{$ctx:secretAccessKey}</secretAccessKey>
+                <accessKeyId>{$ctx:accessKeyId}</accessKeyId>
+                <securityToken>{$ctx:securityToken}</securityToken>
+                <version>{$ctx:version}</version>
+                <region>{$ctx:region}</region>
+                <enableSSL>{$ctx:enableSSL}</enableSSL>
+            </amazonsns.init>
+            <switch source="get-property('transport', 'Action')">
+                <case regex="urn:subscribe">
+                    <amazonsns.subscribe>
+                        <protocol>{$ctx:protocol}</protocol>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                        <endpoint>{$ctx:endpoint}</endpoint>
+                    </amazonsns.subscribe>
+                </case>
+                <case regex="urn:setTopicAttributes">
+                    <amazonsns.setTopicAttributes>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                        <attributeName>{$ctx:attributeName}</attributeName>
+                        <attributeValue>{$ctx:attributeValue}</attributeValue>
+                    </amazonsns.setTopicAttributes>
+                </case>
+                <case regex="urn:removePermission">
+                    <amazonsns.removePermission>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                        <label>{$ctx:label}</label>
+                    </amazonsns.removePermission>
+                </case>
+                <case regex="urn:addPermission">
+                    <amazonsns.addPermission>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                        <label>{$ctx:label}</label>
+                        <actionNameMember>{$ctx:actionNameMember}</actionNameMember>
+                        <accountIdMember>{$ctx:accountIdMember}</accountIdMember>
+                    </amazonsns.addPermission>
+                </case>
+                <case regex="urn:setSubscriptionAttributes">
+                    <amazonsns.setSubscriptionAttributes>
+                        <subscriptionArn>{$ctx:subscriptionArn}</subscriptionArn>
+                        <attributeName>{$ctx:attributeName}</attributeName>
+                        <attributeValue>{$ctx:attributeValue}</attributeValue>
+                    </amazonsns.setSubscriptionAttributes>
+                </case>
+                <case regex="urn:unsubscribe">
+                    <amazonsns.unsubscribe>
+                        <subscriptionArn>{$ctx:subscriptionArn}</subscriptionArn>
+                    </amazonsns.unsubscribe>
+                </case>
+                <case regex="urn:getTopicAttributes">
+                    <amazonsns.getTopicAttributes>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                    </amazonsns.getTopicAttributes>
+                </case>
+                <case regex="urn:getPlatformApplicationAttributes">
+                    <amazonsns.getPlatformApplicationAttributes>
+                        <platformApplicationArn>{$ctx:platformApplicationArn}</platformApplicationArn>
+                    </amazonsns.getPlatformApplicationAttributes>
+                </case>
+                <case regex="urn:setPlatformApplicationAttributes">
+                    <amazonsns.setPlatformApplicationAttributes>
+                        <platformApplicationArn>{$ctx:platformApplicationArn}</platformApplicationArn>
+                        <attributesEntryKey>{$ctx:attributesEntryKey}</attributesEntryKey>
+                        <attributesEntryValue>{$ctx:attributesEntryValue}</attributesEntryValue>
+                    </amazonsns.setPlatformApplicationAttributes>
+                </case>
+                <case regex="urn:getSubscriptionAttributes">
+                    <amazonsns.getSubscriptionAttributes>
+                        <subscriptionArn>{$ctx:subscriptionArn}</subscriptionArn>
+                    </amazonsns.getSubscriptionAttributes>
+                </case>
+                <case regex="urn:setEndpointAttributes">
+                    <amazonsns.setEndpointAttributes>
+                        <endpointArn>{$ctx:endpointArn}</endpointArn>
+                        <attributesEntryKey>{$ctx:attributesEntryKey}</attributesEntryKey>
+                        <attributesEntryValue>{$ctx:attributesEntryValue}</attributesEntryValue>
+                    </amazonsns.setEndpointAttributes>
+                </case>
+                <case regex="urn:getEndpointAttributes">
+                    <amazonsns.getEndpointAttributes>
+                        <endpointArn>{$ctx:endpointArn}</endpointArn>
+                    </amazonsns.getEndpointAttributes>
+                </case>
+                <case regex="urn:confirmSubscription">
+                    <amazonsns.confirmSubscription>
+                        <token>{$ctx:token}</token>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                        <authenticateOnUnsubscribe>{$ctx:authenticateOnUnsubscribe}</authenticateOnUnsubscribe>
+                    </amazonsns.confirmSubscription>
+                </case>
+                <case regex="urn:listSubscriptions">
+                    <amazonsns.listSubscriptions>
+                        <nextToken>{$ctx:nextToken}</nextToken>
+                    </amazonsns.listSubscriptions>
+                </case>
+                <case regex="urn:listSubscriptionsByTopic">
+                    <amazonsns.listSubscriptionsByTopic>
+                        <nextToken>{$ctx:nextToken}</nextToken>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                    </amazonsns.listSubscriptionsByTopic>
+                </case>
+                <case regex="urn:createPlatformApplication">
+                    <amazonsns.createPlatformApplication>
+                        <attributesEntryKey>{$ctx:attributesEntryKey}</attributesEntryKey>
+                        <attributesEntryValue>{$ctx:attributesEntryValue}</attributesEntryValue>
+                        <name>{$ctx:name}</name>
+                        <platform>{$ctx:platform}</platform>
+                    </amazonsns.createPlatformApplication>
+                </case>
+                <case regex="urn:createEndpoint">
+                    <amazonsns.createEndpoint>
+                        <customUserData>{$ctx:customUserData}</customUserData>
+                        <platformApplicationArn>{$ctx:platformApplicationArn}</platformApplicationArn>
+                        <token>{$ctx:token}</token>
+                    </amazonsns.createEndpoint>
+                </case>
+                <case regex="urn:listEndpoints">
+                    <amazonsns.listEndpoints>
+                        <platformApplicationArn>{$ctx:platformApplicationArn}</platformApplicationArn>
+                        <nextToken>{$ctx:nextToken}</nextToken>
+                    </amazonsns.listEndpoints>
+                </case>
+                <case regex="urn:deleteEndpoint">
+                    <amazonsns.deleteEndpoint>
+                        <endpointArn>{$ctx:endpointArn}</endpointArn>
+                    </amazonsns.deleteEndpoint>
+                </case>
+                <case regex="urn:deletePlatformApplication">
+                    <amazonsns.deletePlatformApplication>
+                        <platformApplicationArn>{$ctx:platformApplicationArn}</platformApplicationArn>
+                    </amazonsns.deletePlatformApplication>
+                </case>
+                <case regex="urn:createTopic">
+                    <amazonsns.createTopic>
+                        <name>{$ctx:name}</name>
+                    </amazonsns.createTopic>
+                </case>
+                <case regex="urn:listTopics">
+                    <amazonsns.listTopics>
+                        <nextToken>{$ctx:nextToken}</nextToken>
+                    </amazonsns.listTopics>
+                </case>
+                <case regex="urn:listPlatformApplications">
+                    <amazonsns.listPlatformApplications>
+                        <nextToken>{$ctx:nextToken}</nextToken>
+                    </amazonsns.listPlatformApplications>
+                </case>
+                <case regex="urn:deleteTopic">
+                    <amazonsns.deleteTopic>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                    </amazonsns.deleteTopic>
+                </case>
+                <case regex="urn:publish">
+                    <amazonsns.publish>
+                        <message>{$ctx:message}</message>
+                        <subject>{$ctx:subject}</subject>
+                        <messageStructure>{$ctx:messageStructure}</messageStructure>
+                        <topicArn>{$ctx:topicArn}</topicArn>
+                        <targetArn>{$ctx:targetArn}</targetArn>
+                    </amazonsns.publish>
+                </case>
+            </switch>
+            <respond/>
+        </inSequence>
+        <outSequence>
+            <log/>
+            <send/>
+        </outSequence>
+    </target>
+    <description/>
+</proxy>
+                                

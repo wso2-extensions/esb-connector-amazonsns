@@ -1,0 +1,11 @@
+{
+  "accessKeyId": "%s(awsAccessKeyId)",
+  "secretAccessKey": "%s(awsSecretAccessKey)",
+  "signatureVersion": "4",
+  "signatureMethod": "HmacSHA256",
+  "action": "SetPlatformApplicationAttributes",
+  "region": "%s(region)",
+  "platformApplicationArn": "%s(platformApplicationArn)",
+  "attributesEntryKey": "%s(platformAttributesEntryKey)",
+  "attributesEntryValue": "%s(platformAttributesEntryValue)"
+}

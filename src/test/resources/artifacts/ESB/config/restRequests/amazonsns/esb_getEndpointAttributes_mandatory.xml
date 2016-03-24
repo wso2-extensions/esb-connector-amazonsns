@@ -1,0 +1,7 @@
+<getEndpointAttributes>
+    <accessKeyId>%s(awsAccessKeyId)</accessKeyId>
+    <secretAccessKey>%s(awsSecretAccessKey)</secretAccessKey>
+    <region>%s(region)</region>
+    <endpointArn>%s(endpointArn)</endpointArn>
+    <version></version>
+</getEndpointAttributes>
