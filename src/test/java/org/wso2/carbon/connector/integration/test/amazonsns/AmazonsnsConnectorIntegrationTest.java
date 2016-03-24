@@ -60,7 +60,7 @@ public class AmazonsnsConnectorIntegrationTest extends ConnectorIntegrationTestB
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
 
-        init("amazonsns-connector-1.0.0");
+        init("amazonsns-connector-1.0.1-SNAPSHOT");
 
         esbRequestHeadersMap.put("Accept-Charset", "UTF-8");
         esbRequestHeadersMap.put("Content-Type", "application/xml");
