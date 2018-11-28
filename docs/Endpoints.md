@@ -132,7 +132,7 @@ This operation prepares to subscribe to an endpoint by sending the endpoint a co
 </amazonsns.subscribe> 
 ```
 
-## Properties
+###### Properties
 
 * protocol: Required - The protocol you want to use. Supported protocols include:
 * http - Delivery of a JSON-encoded message via HTTP POST.
@@ -159,11 +159,11 @@ For the application protocol, the endpoint is the EndpointArn of a mobile app an
 
 Endpoint is mandatory even though it is said to be optional.
 
-## Sample request
+###### Sample request
 
 Following is a sample REST/XML request that can be handled by the subscribe operation.
 
-## Sample Request for subscribe
+###### Sample Request for subscribe
 
 ```xml
 <subscribe>
@@ -176,10 +176,10 @@ Following is a sample REST/XML request that can be handled by the subscribe oper
    <endpoint>user.wso2.connector@gmail.com</endpoint>
 </subscribe>
 ```
-### Sample request
+###### Sample request
 Following is a sample REST/XML request that can be handled by the subscribe operation.
 
-#### Sample Request for subscribe
+###### Sample Request for subscribe
 
 ```xml
 <subscribe>
@@ -208,7 +208,7 @@ This operation deletes a subscription by unsubscribing. If the subscription requ
 Sample request
 Following is a sample REST/XML request that can be handled by the unsubscribe operation.
 
-#### Sample Request for unsubscribe
+###### Sample Request for unsubscribe
 ```xml
 <unsubscribe>
    <region>us-west-2</region>
@@ -228,13 +228,13 @@ This operation returns a list of the requester's subscriptions. Each call return
     <nextToken>{$ctx:nextToken}</nextToken>
 </amazonsns.listSubscriptions>
 ```
-### Properties
+###### Properties
 * nextToken: Optional - Token returned by the previous listSubscriptions request.
 
-#### Sample request
+###### Sample request
 Following is a sample REST/XML request that can be handled by the listSubscriptions operation.
 
-#### Sample Request for listSubscriptions
+###### Sample Request for listSubscriptions
 ```xml
 <listSubscriptions>
    <region>us-west-2</region>
@@ -254,14 +254,14 @@ listSubscriptionsByTopic
     <topicArn>{$ctx:topicArn}</topicArn>
 </amazonsns.listSubscriptionsByTopic> 
 ```
-## Properties
+###### Properties
 * nextToken: Optional - Token returned by the previous listSubscriptionsByTopic request.
 * topicArn: Required - The ARN of the topic for which you wish to find subscriptions.
 
-### Sample request
+###### Sample request
 Following is a sample REST/XML request that can be handled by the listSubscriptionsByTopic operation.
 
-##### Sample Request for listSubscriptionsByTopic
+###### Sample Request for listSubscriptionsByTopic
 ```xml
 <listSubscriptionsByTopic>
    <region>us-west-2</region>
@@ -285,16 +285,16 @@ This verifies an endpoint owner's intent to receive messages by validating the t
 </amazonsns.confirmSubscription>
 ```
 
-#### Properties
+###### Properties
 * token: Required - Short-lived token sent to an endpoint during the subscribe action.
 * topicArn: Required - The ARN of the topic for which you wish to confirm a subscription.
 
 authenticateOnUnsubscribe: Optional - Disallows unauthenticated unsubscribes of the subscription. If the value of this parameter is true and the request has an AWS signature, only the topic owner and the subscription owner can unsubscribe the endpoint. The unsubscribe action requires AWS authentication.
 
-### Sample request
+###### Sample request
 Following is a sample REST/XML request that can be handled by the confirmSubscription operation.
 
-#### Sample Request for confirmSubscription
+###### Sample Request for confirmSubscription
 ```xml
 <confirmSubscription>
    <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
@@ -314,12 +314,12 @@ The getEndpointAttributes operation retrieves the endpoint attributes for a devi
    <endpointArn>{$ctx:endpointArn}</endpointArn>
 </amazonsns.getEndpointAttributes>
 ```
-# Properties
+###### Properties
 * endpointArn: Required - The EndpointArn to get input for retrieving endpoint attributes.
-## Sample request
+###### Sample request
 Following is a sample REST/XML request that can be handled by the getEndpointAttributes operation.
 
-## Sample Request for getEndpointAttributes
+###### Sample Request for getEndpointAttributes
 ```xml
 <getEndpointAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
@@ -341,23 +341,22 @@ The setEndpointAttributes operation sets endpoint attributes for a device on one
    <attributesEntryValue>{$ctx:attributesEntryValue}</attributesEntryValue>
 </amazonsns.setEndpointAttributes>
 ```
-#### Properties
-endpointArn: Required - The EndpointArn to set endpoint attributes.
-attributesEntryKey: Required - The key attribute of endpoints. For example, CustomUserData.
-attributesEntryValue: Required - The new value for the key attribute.
+###### Properties
+* endpointArn: Required - The EndpointArn to set endpoint attributes.
+* attributesEntryKey: Required - The key attribute of endpoints. For example, CustomUserData.
+* attributesEntryValue: Required - The new value for the key attribute.
 
-Info
+###### Info
 
 attributesEntry is a map of endpoint attributes. Attributes in this map include the following:  
-
  * CustomUserData : arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.   
  * Enabled : flag that enables/disables delivery to the endpoint. Amazon SNS will set this to false when a notification service indicates to Amazon SNS that the endpoint is invalid. Users can set it back to true, typically after updating Token. 
 * Token : device token, also referred to as a registration id, for an app and mobile device. This is returned from the notification service when an app and mobile device are registered with the notification service.
 
-### Sample request
+###### Sample request
 Following is a sample REST/XML request that can be handled by the setEndpointAttributes operation.
 
-### Sample Request for setEndpointAttributes
+###### Sample Request for setEndpointAttributes
 ```xml
 <setEndpointAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
@@ -370,7 +369,7 @@ Following is a sample REST/XML request that can be handled by the setEndpointAtt
  </setEndpointAttributes>
 ```
 
-Get Subscription Attributes
+##### Get Subscription Attributes
 The getSubscriptionAttributes operation allows you to returns all of the properties of a subscription.
 
 #### getSubscriptionAttributes
@@ -384,7 +383,7 @@ subscriptionArn: Required - The ARN of the subscription whose properties you wan
 Sample request
 Following is a sample REST/XML request that can be handled by the getSubscriptionAttributes operation.
 
-### Sample Request for getSubscriptionAttributes
+###### Sample Request for getSubscriptionAttributes
 ```xml
 <getSubscriptionAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
@@ -394,7 +393,7 @@ Following is a sample REST/XML request that can be handled by the getSubscriptio
     <subscriptionArn>arn:aws:sns:us-west-2:492228198692:Topic_A:57166721-f47a-49d3-82ed-5f0bae009437</subscriptionArn>
  </getSubscriptionAttributes>
 ```
-Set Subscription Attributes
+#### Set Subscription Attributes
 The setSubscriptionAttributes operation allows a subscription owner to set an attribute of the topic to a new value.
 
 #### setSubscriptionAttributes
@@ -405,15 +404,15 @@ The setSubscriptionAttributes operation allows a subscription owner to set an at
    <attributeValue>{$ctx:attributeValue}</attributeValue>
 </amazonsns.setSubscriptionAttributes>
 ```
-### Properties
+###### Properties
 * subscriptionArn: Required - The ARN of the subscription to modify.
 * attributeName: Required - The name of the attribute you want to set. Only a subset of the subscriptions attributes are mutable. (Valid values: DeliveryPolicy | RawMessageDelivery)
 * attributeValue: Optional - The new value for the attribute in JSON format.
 
-## Sample request
+###### Sample request
 Following is a sample REST/XML request that can be handled by the setSubscriptionAttributes operation.
 
-## Sample Request for setSubscriptionAttributes
+###### Sample Request for setSubscriptionAttributes
 ```xml
 <setSubscriptionAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
@@ -430,7 +429,7 @@ Following is a sample REST/XML request that can be handled by the setSubscriptio
 
 Following is a sample proxy service that illustrates how to connect to Amazon SNS with the init operation and use the createEndPoint operation. The sample request for this proxy can be found in createEndpoint sample request. You can use this sample as a template for using other operations in this category.
 
-#### Sample Proxy
+###### Sample Proxy
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <proxy xmlns="http://ws.apache.org/ns/synapse"
