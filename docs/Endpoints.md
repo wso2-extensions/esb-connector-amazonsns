@@ -1,6 +1,6 @@
 # Working with Endpoints in Amazon SNS
 
-[[  Overview ]](#Overview) [[ Operation details ]](#operation-details) [[ Sample configuration ]](#Sample configuration)
+[[  Overview ]](#Overview) [[ Operation details ]](#operation-details) [[  Sample configuration  ]](#Sample configuration)
 
 ### Overview 
 
@@ -26,7 +26,7 @@ For a sample proxy service that illustrates how to work with endpoints, see Samp
 
 This section provides details on each operation.
 
-##### Creating an endpoint
+#### Creating an endpoint
 
 This operation creates an endpoint for a device and mobile app on one of the supported push notification services such as GCM and APNS. The endpoint Amazon Resource Name (ARN) that is returned when using createEndpoint can then be used by the publish action to send a message to a mobile app or by the subscribe action for subscription to a topic. The action is idempotent, so if the requester already owns an endpoint with the same device token and attributes, that endpoint's ARN is returned without creating a new endpoint. For more information, see [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html).
 
@@ -61,7 +61,7 @@ Following is a sample REST/XML request that can be handled by the createEndPoint
    <customUserData>Custom User Data</customUserData>
 </createEndpoint> 
 ```
-##### Deleting an endpoint
+#### Deleting an endpoint
 This operation deletes the endpoint from Amazon SNS. This action is idempotent. For more information, see [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html). 
 
 ### deleteEndpoint
@@ -88,11 +88,10 @@ Following is a sample REST/XML request that can be handled by the deleteEndpoint
    <endpointArn>arn:aws:sns:us-west-2:899940420354:endpoint/GCM/gcmpushapp/95d31fb9-cfa7-32f6-982c-40c5cb470dcd</endpointArn>
 </deleteEndpoint>
 ```
-### Listing endpoints
+#### Listing endpoints
 This operation lists the endpoints and endpoint attributes for devices in a supported push notification service such as GCM and APNS. The results are paginated and return a limited list of endpoints, up to 100. If additional records are available after the first page of results, a NextToken string will be returned. To receive the next page, you call listEndpoints again using the NextToken string received from the previous call. When there are no more records to return, NextToken will be null. For more information, see Using Amazon SNS Mobile Push Notifications.
 
-###### listEndpoints
-
+#### listEndpoints
 ```xml
 <amazonsns.listEndpoints>
     <platformApplicationArn>{$ctx:platformApplicationArn}</platformApplicationArn>
@@ -120,11 +119,11 @@ Following is a sample REST/XML request that can be handled by the listEndpoints 
    <nextToken></nextToken>
 </listEndpoints>
 ```
-### Subscribing to an endpoint
+#### Subscribing to an endpoint
 
 This operation prepares to subscribe to an endpoint by sending the endpoint a confirmation message. To actually create a subscription, the endpoint owner must call the ConfirmSubscriptionaction with the token from the confirmation message. Confirmation tokens are valid for three days.
 
-## subscribe
+#### subscribe
 ```xml
 <amazonsns.subscribe>
     <protocol>{$ctx:protocol}</protocol>
@@ -193,10 +192,10 @@ Following is a sample REST/XML request that can be handled by the subscribe oper
    <endpoint>user.wso2.connector@gmail.com</endpoint>
 </subscribe>
 ```
-### Deleting a subscription
+#### Deleting a subscription
 This operation deletes a subscription by unsubscribing. If the subscription requires authentication for deletion, only the owner of the subscription or the topic's owner can unsubscribe, and an AWS signature is required. If the unsubscribe call does not require authentication and the requester is not the subscription owner, a final cancellation message is delivered to the endpoint, so that the endpoint owner can easily resubscribe to the topic if the unsubscribe request was unintended.
 
-## unsubscribe
+#### unsubscribe
 
 ```xml
 <amazonsns.unsubscribe>
@@ -223,7 +222,7 @@ Following is a sample REST/XML request that can be handled by the unsubscribe op
 
 This operation returns a list of the requester's subscriptions. Each call returns a limited list of subscriptions, up to 100. If there are more subscriptions, a NextToken is also returned. Use the nextToken property in a new listSubscriptions call to get further results.
 
-### listSubscriptions
+#### listSubscriptions
 ```xml
 <amazonsns.listSubscriptions>
     <nextToken>{$ctx:nextToken}</nextToken>
@@ -235,7 +234,7 @@ This operation returns a list of the requester's subscriptions. Each call return
 #### Sample request
 Following is a sample REST/XML request that can be handled by the listSubscriptions operation.
 
-### Sample Request for listSubscriptions
+#### Sample Request for listSubscriptions
 ```xml
 <listSubscriptions>
    <region>us-west-2</region>
@@ -245,7 +244,7 @@ Following is a sample REST/XML request that can be handled by the listSubscripti
    <nextToken></nextToken>
 </listSubscriptions>
 ```
-### Listing subscriptions by topic
+#### Listing subscriptions by topic
 This operation returns a list of the subscriptions to a specific topic. Each call returns a limited list of subscriptions, up to 100. If there are more subscriptions, a NextToken is also returned. Use the nextToken property in a new listSubscriptionsByTopic call to get further results.
 
 listSubscriptionsByTopic
@@ -309,7 +308,7 @@ Following is a sample REST/XML request that can be handled by the confirmSubscri
 #### Retrieving endpoint attributes 
 The getEndpointAttributes operation retrieves the endpoint attributes for a device on one of the supported push notification services, such as GCM and APNS. For more information, see Using Amazon SNS Mobile Push Notifications.
 
-## getEndpointAttributes
+#### getEndpointAttributes
 ```xml
 <amazonsns.getEndpointAttributes>
    <endpointArn>{$ctx:endpointArn}</endpointArn>
@@ -331,10 +330,10 @@ Following is a sample REST/XML request that can be handled by the getEndpointAtt
 </getEndpointAttributes> 
 ```
 
-### Setting Endpoint Attributes
+#### Setting Endpoint Attributes
 The setEndpointAttributes operation sets endpoint attributes for a device on one of the supported push notification services, such as GCM and APNS.
 
-## setEndpointAttributes
+#### setEndpointAttributes
 ```xml 
 <amazonsns.setEndpointAttributes>
    <endpointArn>{$ctx:endpointArn}</endpointArn>
@@ -369,21 +368,24 @@ Following is a sample REST/XML request that can be handled by the setEndpointAtt
     <attributesEntryKey>CustomUserData</attributesEntryKey>
     <attributesEntryValue>My Custom User Data For Testing</attributesEntryValue>
  </setEndpointAttributes>
-```xml
+```
 
 Get Subscription Attributes
 The getSubscriptionAttributes operation allows you to returns all of the properties of a subscription.
 
-### getSubscriptionAttributes
+#### getSubscriptionAttributes
+```xml
 <amazonsns.getSubscriptionAttributes>
    <subscriptionArn>{$ctx:subscriptionArn}</subscriptionArn>
 </amazonsns.getSubscriptionAttributes>
+```
 Properties
 subscriptionArn: Required - The ARN of the subscription whose properties you want to get.
 Sample request
 Following is a sample REST/XML request that can be handled by the getSubscriptionAttributes operation.
 
-Sample Request for getSubscriptionAttributes
+### Sample Request for getSubscriptionAttributes
+```xml
 <getSubscriptionAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
     <secretAccessKey>N9VT2P3MaL7Li1P3hJudf1GTtOO7Kd7NfPlyYG8f/6</secretAccessKey>
@@ -391,23 +393,28 @@ Sample Request for getSubscriptionAttributes
     <version></version>
     <subscriptionArn>arn:aws:sns:us-west-2:492228198692:Topic_A:57166721-f47a-49d3-82ed-5f0bae009437</subscriptionArn>
  </getSubscriptionAttributes>
+```
 Set Subscription Attributes
 The setSubscriptionAttributes operation allows a subscription owner to set an attribute of the topic to a new value.
 
-setSubscriptionAttributes
+#### setSubscriptionAttributes
+```xml
 <amazonsns.setSubscriptionAttributes>
    <subscriptionArn>{$ctx:subscriptionArn}</subscriptionArn>
    <attributeName>{$ctx:attributeName}</attributeName>
    <attributeValue>{$ctx:attributeValue}</attributeValue>
 </amazonsns.setSubscriptionAttributes>
-Properties
-subscriptionArn: Required - The ARN of the subscription to modify.
-attributeName: Required - The name of the attribute you want to set. Only a subset of the subscriptions attributes are mutable. (Valid values: DeliveryPolicy | RawMessageDelivery)
-attributeValue: Optional - The new value for the attribute in JSON format.
-Sample request
+```
+### Properties
+* subscriptionArn: Required - The ARN of the subscription to modify.
+* attributeName: Required - The name of the attribute you want to set. Only a subset of the subscriptions attributes are mutable. (Valid values: DeliveryPolicy | RawMessageDelivery)
+* attributeValue: Optional - The new value for the attribute in JSON format.
+
+## Sample request
 Following is a sample REST/XML request that can be handled by the setSubscriptionAttributes operation.
 
-Sample Request for setSubscriptionAttributes
+## Sample Request for setSubscriptionAttributes
+```xml
 <setSubscriptionAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
     <secretAccessKey>N9VT2P3MaL7Li1P3hJudf1GTtOO7Kd7NfPlyYG8f/6</secretAccessKey>
@@ -417,11 +424,14 @@ Sample Request for setSubscriptionAttributes
     <attributeName>DeliveryPolicy</attributeName>
     <attributeValue></attributeValue> 
 </setSubscriptionAttributes>
+```
 
 ### Sample configuration
+
 Following is a sample proxy service that illustrates how to connect to Amazon SNS with the init operation and use the createEndPoint operation. The sample request for this proxy can be found in createEndpoint sample request. You can use this sample as a template for using other operations in this category.
 
-Sample Proxy
+#### Sample Proxy
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <proxy xmlns="http://ws.apache.org/ns/synapse"
        name="amazonsns_createEndpoint"
@@ -456,7 +466,8 @@ Sample Proxy
       </outSequence>
    </target>
    <description/>
-</proxy>                                 
+</proxy> 
+```
 
 
 
