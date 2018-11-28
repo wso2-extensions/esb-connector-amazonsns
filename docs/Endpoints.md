@@ -1,6 +1,6 @@
 # Working with Endpoints in Amazon SNS
 
-[[  Overview ]](#Overview) [[ Operation details ]](#operation-details) [ Sample configuration ]
+[[  Overview ]](#Overview) [[ Operation details ]](#operation-details) [[ Sample configuration ]](#Sample configuration)
 
 ### Overview 
 
@@ -417,7 +417,7 @@ Sample Request for setSubscriptionAttributes
     <attributeValue></attributeValue> 
 </setSubscriptionAttributes>
 
-Sample configuration
+### Sample configuration
 Following is a sample proxy service that illustrates how to connect to Amazon SNS with the init operation and use the createEndPoint operation. The sample request for this proxy can be found in createEndpoint sample request. You can use this sample as a template for using other operations in this category.
 
 Sample Proxy
