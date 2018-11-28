@@ -1,6 +1,6 @@
 # Working with Endpoints in Amazon SNS
 
-[[  Overview ]] [[ Operation details ]](#operation-details) [ Sample configuration ]
+[[  Overview ]](#Overview) [[ Operation details ]](#operation-details) [ Sample configuration ]
 
 ### Overview 
 
