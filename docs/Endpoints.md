@@ -87,7 +87,6 @@ Following is a sample REST/XML request that can be handled by the deleteEndpoint
    <endpointArn>arn:aws:sns:us-west-2:899940420354:endpoint/GCM/gcmpushapp/95d31fb9-cfa7-32f6-982c-40c5cb470dcd</endpointArn>
 </deleteEndpoint>
 ```
-
 ## Listing endpoints
 This operation lists the endpoints and endpoint attributes for devices in a supported push notification service such as GCM and APNS. The results are paginated and return a limited list of endpoints, up to 100. If additional records are available after the first page of results, a NextToken string will be returned. To receive the next page, you call listEndpoints again using the NextToken string received from the previous call. When there are no more records to return, NextToken will be null. For more information, see Using Amazon SNS Mobile Push Notifications.
 
@@ -99,7 +98,7 @@ This operation lists the endpoints and endpoint attributes for devices in a supp
     <nextToken>{$ctx:nextToken}</nextToken>
 </amazonsns.listEndpoints> 
 ```
-#### Properties
+##### Properties
 
 * platformApplicationArn: Required - PlatformApplicationArn for list endpoints.
 * nextToken: Optional - NextToken string is used when calling the listEndpoints operation to retrieve additional records that are available after the first page results.
@@ -230,11 +229,13 @@ This operation returns a list of the requester's subscriptions. Each call return
 </amazonsns.listSubscriptions>
 ```
 ### Properties
-nextToken: Optional - Token returned by the previous listSubscriptions request.
-Sample request
+* nextToken: Optional - Token returned by the previous listSubscriptions request.
+
+#### Sample request
 Following is a sample REST/XML request that can be handled by the listSubscriptions operation.
 
 ### Sample Request for listSubscriptions
+```xml
 <listSubscriptions>
    <region>us-west-2</region>
    <accessKeyId>AKISSAJXHDKJWR2ZVPEBTQ</accessKeyId>
@@ -242,21 +243,26 @@ Following is a sample REST/XML request that can be handled by the listSubscripti
    <version></version>
    <nextToken></nextToken>
 </listSubscriptions>
-Listing subscriptions by topic
+```
+### Listing subscriptions by topic
 This operation returns a list of the subscriptions to a specific topic. Each call returns a limited list of subscriptions, up to 100. If there are more subscriptions, a NextToken is also returned. Use the nextToken property in a new listSubscriptionsByTopic call to get further results.
 
 listSubscriptionsByTopic
+```xml
 <amazonsns.listSubscriptionsByTopic>
     <nextToken>{$ctx:nextToken}</nextToken>
     <topicArn>{$ctx:topicArn}</topicArn>
 </amazonsns.listSubscriptionsByTopic> 
-Properties
-nextToken: Optional - Token returned by the previous listSubscriptionsByTopic request.
-topicArn: Required - The ARN of the topic for which you wish to find subscriptions.
-Sample request
+```
+## Properties
+* nextToken: Optional - Token returned by the previous listSubscriptionsByTopic request.
+* topicArn: Required - The ARN of the topic for which you wish to find subscriptions.
+
+### Sample request
 Following is a sample REST/XML request that can be handled by the listSubscriptionsByTopic operation.
 
-Sample Request for listSubscriptionsByTopic
+##### Sample Request for listSubscriptionsByTopic
+```xml
 <listSubscriptionsByTopic>
    <region>us-west-2</region>
    <accessKeyId>AKIAJXFFHDKJWR2ZVPEBTQ</accessKeyId>
@@ -265,23 +271,31 @@ Sample Request for listSubscriptionsByTopic
    <nextToken></nextToken>
    <topicArn>arn:aws:sns:us-west-2:899940420354:TopicName1</topicArn>
 </listSubscriptionsByTopic>
-Confirming a subscription
+```
+#### Confirming a subscription
 This verifies an endpoint owner's intent to receive messages by validating the token sent to the endpoint by an earlier subscribe action. If the token is valid, the action creates a new subscription and returns its Amazon Resource Name (ARN). This call requires an AWS signature only when the authenticateOnUnsubscribe flag is set to true.
 
-confirmSubscription
+#### confirmSubscription
+
+```xml
 <amazonsns.confirmSubscription>
     <token>{$ctx:token}</token>
     <topicArn>{$ctx:topicArn}</topicArn>
     <authenticateOnUnsubscribe>{$ctx:authenticateOnUnsubscribe}</authenticateOnUnsubscribe>
 </amazonsns.confirmSubscription>
-Properties
-token: Required - Short-lived token sent to an endpoint during the subscribe action.
-topicArn: Required - The ARN of the topic for which you wish to confirm a subscription.
+```
+
+#### Properties
+* token: Required - Short-lived token sent to an endpoint during the subscribe action.
+* topicArn: Required - The ARN of the topic for which you wish to confirm a subscription.
+
 authenticateOnUnsubscribe: Optional - Disallows unauthenticated unsubscribes of the subscription. If the value of this parameter is true and the request has an AWS signature, only the topic owner and the subscription owner can unsubscribe the endpoint. The unsubscribe action requires AWS authentication.
-Sample request
+
+### Sample request
 Following is a sample REST/XML request that can be handled by the confirmSubscription operation.
 
-Sample Request for confirmSubscription
+#### Sample Request for confirmSubscription
+```xml
 <confirmSubscription>
    <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
    <secretAccessKey>N9VT2P3MaL7Li1P3hJudf1GTtOO7Kd7NfPlyYG8f/6</secretAccessKey>
@@ -290,19 +304,23 @@ Sample Request for confirmSubscription
    <topicArn>arn:aws:sns:us-west-2:899940420354:TopicName2</topicArn>
    <authenticateOnUnsubscribe></authenticateOnUnsubscribe>
 </confirmSubscription> 
-Retrieving endpoint attributes 
+```
+#### Retrieving endpoint attributes 
 The getEndpointAttributes operation retrieves the endpoint attributes for a device on one of the supported push notification services, such as GCM and APNS. For more information, see Using Amazon SNS Mobile Push Notifications.
 
-getEndpointAttributes
+## getEndpointAttributes
+```xml
 <amazonsns.getEndpointAttributes>
    <endpointArn>{$ctx:endpointArn}</endpointArn>
 </amazonsns.getEndpointAttributes>
-Properties
-endpointArn: Required - The EndpointArn to get input for retrieving endpoint attributes.
-Sample request
+```
+# Properties
+* endpointArn: Required - The EndpointArn to get input for retrieving endpoint attributes.
+## Sample request
 Following is a sample REST/XML request that can be handled by the getEndpointAttributes operation.
 
-Sample Request for getEndpointAttributes
+## Sample Request for getEndpointAttributes
+```xml
 <getEndpointAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
     <secretAccessKey>N9VT2P3MaL7Li1P3hJudf1GTtOO7Kd7NfPlyYG8f/6</secretAccessKey>
@@ -310,16 +328,20 @@ Sample Request for getEndpointAttributes
     <version></version>
     <endpointArn>arn:aws:sns:us-west-2:492228198692:endpoint/GCM/AppOptional/5b9c46a7-f8ef-3d2d-934a-08ce556aeab9</endpointArn>
 </getEndpointAttributes> 
-Setting Endpoint Attributes
+```
+
+### Setting Endpoint Attributes
 The setEndpointAttributes operation sets endpoint attributes for a device on one of the supported push notification services, such as GCM and APNS.
 
-setEndpointAttributes
+## setEndpointAttributes
+```xml 
 <amazonsns.setEndpointAttributes>
    <endpointArn>{$ctx:endpointArn}</endpointArn>
    <attributesEntryKey>{$ctx:attributesEntryKey}</attributesEntryKey>
    <attributesEntryValue>{$ctx:attributesEntryValue}</attributesEntryValue>
 </amazonsns.setEndpointAttributes>
-Properties
+```
+#### Properties
 endpointArn: Required - The EndpointArn to set endpoint attributes.
 attributesEntryKey: Required - The key attribute of endpoints. For example, CustomUserData.
 attributesEntryValue: Required - The new value for the key attribute.
@@ -328,13 +350,15 @@ Info
 
 attributesEntry is a map of endpoint attributes. Attributes in this map include the following:  
 
- CustomUserData : arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.   
- Enabled : flag that enables/disables delivery to the endpoint. Amazon SNS will set this to false when a notification service indicates to Amazon SNS that the endpoint is invalid. Users can set it back to true, typically after updating Token. 
-Token : device token, also referred to as a registration id, for an app and mobile device. This is returned from the notification service when an app and mobile device are registered with the notification service.
-Sample request
+ * CustomUserData : arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.   
+ * Enabled : flag that enables/disables delivery to the endpoint. Amazon SNS will set this to false when a notification service indicates to Amazon SNS that the endpoint is invalid. Users can set it back to true, typically after updating Token. 
+* Token : device token, also referred to as a registration id, for an app and mobile device. This is returned from the notification service when an app and mobile device are registered with the notification service.
+
+### Sample request
 Following is a sample REST/XML request that can be handled by the setEndpointAttributes operation.
 
-Sample Request for setEndpointAttributes
+### Sample Request for setEndpointAttributes
+```xml
 <setEndpointAttributes>
     <accessKeyId>AKIAJXHDDKJWR2ZVPEBTQ</accessKeyId>
     <secretAccessKey>N9VT2P3MaL7Li1P3hJudf1GTtOO7Kd7NfPlyYG8f/6</secretAccessKey>
@@ -344,10 +368,12 @@ Sample Request for setEndpointAttributes
     <attributesEntryKey>CustomUserData</attributesEntryKey>
     <attributesEntryValue>My Custom User Data For Testing</attributesEntryValue>
  </setEndpointAttributes>
+```xml
+
 Get Subscription Attributes
 The getSubscriptionAttributes operation allows you to returns all of the properties of a subscription.
 
-getSubscriptionAttributes
+### getSubscriptionAttributes
 <amazonsns.getSubscriptionAttributes>
    <subscriptionArn>{$ctx:subscriptionArn}</subscriptionArn>
 </amazonsns.getSubscriptionAttributes>
