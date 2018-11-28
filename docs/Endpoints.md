@@ -224,17 +224,17 @@ Following is a sample REST/XML request that can be handled by the unsubscribe op
 This operation returns a list of the requester's subscriptions. Each call returns a limited list of subscriptions, up to 100. If there are more subscriptions, a NextToken is also returned. Use the nextToken property in a new listSubscriptions call to get further results.
 
 ### listSubscriptions
-
+```xml
 <amazonsns.listSubscriptions>
     <nextToken>{$ctx:nextToken}</nextToken>
 </amazonsns.listSubscriptions>
-
+```
 ### Properties
 nextToken: Optional - Token returned by the previous listSubscriptions request.
 Sample request
 Following is a sample REST/XML request that can be handled by the listSubscriptions operation.
 
-Sample Request for listSubscriptions
+### Sample Request for listSubscriptions
 <listSubscriptions>
    <region>us-west-2</region>
    <accessKeyId>AKISSAJXHDKJWR2ZVPEBTQ</accessKeyId>
