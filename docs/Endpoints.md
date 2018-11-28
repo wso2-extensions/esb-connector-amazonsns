@@ -22,17 +22,17 @@ For a sample proxy service that illustrates how to work with endpoints, see Samp
 | unsubscribe | unsubscribe	Deletes a subscription.|
 
 
-# Operation details
+### Operation details
 
 This section provides details on each operation.
 
-Creating an endpoint
+##### Creating an endpoint
 
 This operation creates an endpoint for a device and mobile app on one of the supported push notification services such as GCM and APNS. The endpoint Amazon Resource Name (ARN) that is returned when using createEndpoint can then be used by the publish action to send a message to a mobile app or by the subscribe action for subscription to a topic. The action is idempotent, so if the requester already owns an endpoint with the same device token and attributes, that endpoint's ARN is returned without creating a new endpoint. For more information, see [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html).
 
 When using this operation with Baidu, two attributes must be provided: ChannelId and UserId. The token field must also contain the ChannelId. For more information, see [Creating an Amazon SNS Endpoint for Baidu](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePushBaiduEndpoint.html). 
 
-### createEndpoint
+#### createEndpoint
 ```xml
 <amazonsns.createEndpoint>
     <customUserData>{$ctx:customUserData}</customUserData>
@@ -40,15 +40,16 @@ When using this operation with Baidu, two attributes must be provided: ChannelId
     <token>{$ctx:token}</token>
 </amazonsns.createEndpoint>
 ```
-#### Properties
+###### Properties
 * customUserData: Optional - Arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.
 * platformApplicationArn: Required - PlatformApplicationArn returned from CreatePlatformApplication is used to create an endpoint.
 * token: Required - Unique identifier created by the notification service for an app on a device. The specific name for the token will vary depending on the notification service being used. For example, when using APNS as the notification service, you need the device token. Alternatively, when using GCM or ADM, the device token equivalent is called the registration ID.
-Sample request
+
+###### Sample request
 
 Following is a sample REST/XML request that can be handled by the createEndPoint operation.
 
-###### Sample Request for createEndpoint
+##### Sample Request for createEndpoint
 ```xml
 <createEndpoint>
    <region>us-west-2</region>
@@ -60,7 +61,7 @@ Following is a sample REST/XML request that can be handled by the createEndPoint
    <customUserData>Custom User Data</customUserData>
 </createEndpoint> 
 ```
-## Deleting an endpoint
+##### Deleting an endpoint
 This operation deletes the endpoint from Amazon SNS. This action is idempotent. For more information, see [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html). 
 
 ### deleteEndpoint
@@ -70,13 +71,13 @@ This operation deletes the endpoint from Amazon SNS. This action is idempotent. 
     <endpointArn>{$ctx:endpointArn}</endpointArn>
 </amazonsns.deleteEndpoint> 
 ```
-#### Properties
+###### Properties
 * endpointArn: Required - EndpointArn of endpoint to delete. 
 
 ###### Sample request
 Following is a sample REST/XML request that can be handled by the deleteEndpoint operation.
 
-#### Sample Request for deleteEndpoint
+##### Sample Request for deleteEndpoint
 
 ```xml
 <deleteEndpoint>
@@ -87,7 +88,7 @@ Following is a sample REST/XML request that can be handled by the deleteEndpoint
    <endpointArn>arn:aws:sns:us-west-2:899940420354:endpoint/GCM/gcmpushapp/95d31fb9-cfa7-32f6-982c-40c5cb470dcd</endpointArn>
 </deleteEndpoint>
 ```
-## Listing endpoints
+### Listing endpoints
 This operation lists the endpoints and endpoint attributes for devices in a supported push notification service such as GCM and APNS. The results are paginated and return a limited list of endpoints, up to 100. If additional records are available after the first page of results, a NextToken string will be returned. To receive the next page, you call listEndpoints again using the NextToken string received from the previous call. When there are no more records to return, NextToken will be null. For more information, see Using Amazon SNS Mobile Push Notifications.
 
 ###### listEndpoints
@@ -98,7 +99,7 @@ This operation lists the endpoints and endpoint attributes for devices in a supp
     <nextToken>{$ctx:nextToken}</nextToken>
 </amazonsns.listEndpoints> 
 ```
-##### Properties
+###### Properties
 
 * platformApplicationArn: Required - PlatformApplicationArn for list endpoints.
 * nextToken: Optional - NextToken string is used when calling the listEndpoints operation to retrieve additional records that are available after the first page results.
@@ -107,7 +108,7 @@ This operation lists the endpoints and endpoint attributes for devices in a supp
 
 Following is a sample REST/XML request that can be handled by the listEndpoints operation.
 
-### Sample Request for listEndpoints
+##### Sample Request for listEndpoints
 
 ```xml
 <listEndpoints>
