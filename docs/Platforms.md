@@ -6,7 +6,7 @@
 ### Overview
 The following operations allow you to work with platforms. Click an operation name to see details on how to use it.
 
-For a sample proxy service that illustrates how to work with platforms, see Sample configuration.
+For a sample proxy service that illustrates how to work with platforms, see [Sample configuration](#sample-configuration).
 
 | Operation | Description |
 | --- | --- |
