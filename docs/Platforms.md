@@ -63,7 +63,7 @@ This operation retrieves the attributes of the platform application object for t
     <platformApplicationArn>{$ctx:platformApplicationArn}</platformApplicationArn>
 </amazonsns.getPlatformApplicationAttributes>
 ```
-##### Properties
+#### Properties
 
 * platformApplicationArn: Required - PlatformApplicationArn for GetPlatformApplicationAttributesInput.
 
