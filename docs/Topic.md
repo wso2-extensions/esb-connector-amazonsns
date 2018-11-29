@@ -114,16 +114,18 @@ To use the publish action for sending a message to a mobile endpoint, such as an
 
 
 ##### JSON-specific constraints
+```xml
+* Keys in the JSON object that correspond to supported transport protocols must have simple JSON string values.
+* The values will be parsed (unescaped) before they are used in outgoing messages.
+* Outbound notifications are JSON encoded (meaning that the characters will be re-escaped for sending).
+* Values have a minimum length of 0 (the empty string, "", is allowed).
+* Values have a maximum length bounded by the overall message size (so including multiple protocols may limit message sizes).
+* Non-string values will cause the key to be ignored.
+* Keys that do not correspond to supported transport protocols are ignored.
+* Duplicate keys are not allowed.
+* Failure to parse or validate any key or value in the message will cause the publish call to return an error (no partial delivery).
+```
 
-Keys in the JSON object that correspond to supported transport protocols must have simple JSON string values.
-The values will be parsed (unescaped) before they are used in outgoing messages.
-Outbound notifications are JSON encoded (meaning that the characters will be re-escaped for sending).
-Values have a minimum length of 0 (the empty string, "", is allowed).
-Values have a maximum length bounded by the overall message size (so including multiple protocols may limit message sizes).
-Non-string values will cause the key to be ignored.
-Keys that do not correspond to supported transport protocols are ignored.
-Duplicate keys are not allowed.
-Failure to parse or validate any key or value in the message will cause the publish call to return an error (no partial delivery).
 subject: Optional - To be used as the "Subject" line when the message is delivered to email endpoints. This field will also be included, if present, in the standard JSON messages delivered to other endpoints. Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not include line breaks or control characters; and must be less than 100 characters long.
 messageStructure: Optional - Set messageStructure to json if you want to send a different message for each protocol. For example, using one publish action, you can send a short message to your SMS subscribers and a longer message to your email subscribers. If you set messageStructure to json, the value of the Message parameter must:
 be a syntactically valid JSON object; and
