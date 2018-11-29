@@ -37,4 +37,9 @@ Required message builders
 <messageBuilder contentType="application/x-www-form-urlencoded" class="org.apache.synapse.commons.builders.XFormURLEncodedBuilder"/>
 ```
 
-Now that you have connected to Amazon SNS, see the information in the following topics to perform various operations with the connector. 
+Now that you have connected to Amazon SNS, see the information in the following topics to perform various operations with the connector.
+
+* [Working with Endpoints in Amazon SNS](Endpoints.md)
+* [Working with Topics in Amazon SNS](Topic.md)
+* [Working with Permission in Amazon SNS](Permission.md)
+* [Working with Platforms in Amazon SNS](Platforms.md)
