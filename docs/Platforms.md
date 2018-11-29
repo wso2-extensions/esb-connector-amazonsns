@@ -19,7 +19,7 @@ For a sample proxy service that illustrates how to work with platforms, see [Sam
 ### Operation details
 This section provides details on the operations.
 
-#### Creating Platform Application
+### Creating Platform Application
 This operation creates a platform application object for one of the supported push notification services, such as APNS and GCM, to which devices and mobile apps may register. You must specify PlatformPrincipal and PlatformCredential attributes when using the CreatePlatformApplication action. For GCM, PlatformCredential is "API key".
 
 #### createPlatformApplication
@@ -54,7 +54,7 @@ Following is a sample REST/XML request that can be handled by the createPlatform
     <platform>GCM</platform>
 </createPlatformApplication>
 ```
-#### Get Platform Applications Attributes
+### Get Platform Applications Attributes
 This operation retrieves the attributes of the platform application object for the supported push notification services, such as APNS and GCM.
 
 #### getPlatformApplicationAttributes
@@ -85,7 +85,7 @@ Following is a sample REST/XML request that can be handled by the getPlatformApp
 #### List Platform Applications
 This operation lists the platform application objects for the supported push notification services, such as APNS and GCM.
 
-#### listPlatformApplications
+### listPlatformApplications
 ```xml
 <amazonsns.listPlatformApplications>
     <nextToken>{$ctx:nextToken}</nextToken>
@@ -109,7 +109,7 @@ Following is a sample REST/XML request that can be handled by the listPlatformAp
 </listPlatformApplications>
 ```
 
-#### Delete Platform Application
+### Delete Platform Application
 This operation deletes a platform application object for one of the supported push notification services, such as APNS and GCM.
 
 #### deletePlatformApplication
