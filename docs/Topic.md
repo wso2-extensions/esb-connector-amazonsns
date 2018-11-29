@@ -21,7 +21,7 @@ This section provides details on the operations.
 #### Creating a topic
 This operation creates a topic to which notifications can be published. Users can create at most 3000 topics. For more information, see http://aws.amazon.com/sns. This action is idempotent, so if the requester already owns a topic with the specified name, that topic's ARN is returned without creating a new topic. 
 
-#### createTopic
+### createTopic
 ```xml
 <amazonsns.createTopic>
     <name>{$ctx:name}</name>
@@ -43,7 +43,7 @@ Following is a sample REST/XML request that can be handled by the createTopic op
 </createTopic>
 ```
 
-#### Deleting a topic
+### Deleting a topic
 This operation deletes a topic and all its subscriptions. Deleting a topic might prevent some messages previously sent to the topic from being delivered to subscribers. This action is idempotent, so deleting a topic that does not exist does not result in an error. 
 
 #### deleteTopic
@@ -70,7 +70,7 @@ Following is a sample REST/XML request that can be handled by the deleteTopic op
    <topicArn>arn:aws:sns:us-west-2:899940420354:TopicName2</topicArn>
 </deleteTopic>
 ```
-#### Listing topics
+### Listing topics
 This operation returns a list of the requester's topics. Each call returns a limited list of topics, up to 100. If there are more topics, a NextToken is also returned. Use the nextToken property in a new listTopics call to get further results. 
 
 #### listTopics
@@ -79,7 +79,7 @@ This operation returns a list of the requester's topics. Each call returns a lim
     <nextToken>{$ctx:nextToken}</nextToken>
 </amazonsns.listTopics> 
 ```
-##### Properties
+#### Properties
 * nextToken: Optional - Token returned by the previous listTopics request.
 ##### Sample request
 Following is a sample REST/XML request that can be handled by the listTopics operation.
@@ -94,7 +94,7 @@ Following is a sample REST/XML request that can be handled by the listTopics ope
    <nextToken></nextToken>
 </listTopics> 
 ```
-#### Publishing messages
+### Publishing messages
 This operation sends a message to all of a topic's subscribed endpoints. When a message ID is returned, the message has been saved and Amazon SNS will attempt to deliver it to the topic's subscribers shortly. The format of the outgoing message to each subscribed endpoint depends on the notification protocol selected.
 
 To use the publish action for sending a message to a mobile endpoint, such as an app on a Kindle device or mobile phone, you must specify the EndpointArn with the targetArn property. The EndpointArn is returned when making a CreatePlatformEndpoint call in the Amazon SNS API. 
@@ -109,11 +109,11 @@ To use the publish action for sending a message to a mobile endpoint, such as an
     <targetArn>{$ctx:targetArn}</targetArn>
 </amazonsns.publish> 
 ```
-##### Properties
+#### Properties
 * message: Required - The message you want to send to the topic. If you want to send the same message to all transport protocols, include the text of the message as a String value. If you want to send different messages for each transport protocol, set the value of the messageStructure parameter to json and use a JSON object for the message parameter. See the Examples section in http://docs.aws.amazon.com/sns/latest/api/API_Publish.html for the format of the JSON object. Constraints: Messages must be UTF-8 encoded strings at most 256 KB in size (262144 bytes, not 262144 characters).
 
 
-###### JSON-specific constraints
+##### JSON-specific constraints
 
 Keys in the JSON object that correspond to supported transport protocols must have simple JSON string values.
 The values will be parsed (unescaped) before they are used in outgoing messages.
@@ -132,8 +132,10 @@ You can define other top-level keys that define the message you want to send to 
 
 * topicArn: Optional - The topic you want to publish to.
 * targetArn: Optional - Either TopicArn or EndpointArn, but not both.
+
 ##### Sample request
 Following is a sample REST/JSON request that can be handled by the publish operation.
+
 ```json
 Sample Request for publish
 {
@@ -149,7 +151,7 @@ Sample Request for publish
 }
 ```
 
-#### Get Topic Attributes
+### Get Topic Attributes
 This operation returns all of the properties of a topic. Topic properties returned might differ based on the authorization of the user.
 
 #### getTopicAttributes
@@ -175,7 +177,7 @@ Following is a sample REST/XML request that can be handled by the getTopicAttrib
 </getTopicAttributes>
 ```
 
-#### Set Topic Attributes
+### Set Topic Attributes
 This operation allows a topic owner to set an attribute of the topic to a new value.
 
 #### setTopicAttributes
