@@ -129,8 +129,8 @@ To use the publish action for sending a message to a mobile endpoint, such as an
 * subject: Optional - To be used as the "Subject" line when the message is delivered to email endpoints. This field will also be included, if present, in the standard JSON messages delivered to other endpoints. Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not include line breaks or control characters; and must be less than 100 characters long.
 
 * messageStructure: Optional - Set messageStructure to json if you want to send a different message for each protocol. For example, using one publish action, you can send a short message to your SMS subscribers and a longer message to your email subscribers. If you set messageStructure to json, the value of the Message parameter must:
-       * be a syntactically valid JSON object; and
-       * contain at least a top-level JSON key of "default" with a value that is a string.
+       - be a syntactically valid JSON object; and
+       - contain at least a top-level JSON key of "default" with a value that is a string.
 You can define other top-level keys that define the message you want to send to a specific transport protocol (e.g., "http"). For information about sending different messages for each protocol using the AWS Management Console, go to [Create Different Messages for Each Protocol](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html#sns-message-formatting-by-protocol) in the Amazon Simple Notification Service Getting Started Guide. Valid value: json
 
 * topicArn: Optional - The topic you want to publish to.
