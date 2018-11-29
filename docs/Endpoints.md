@@ -26,7 +26,7 @@ For a sample proxy service that illustrates how to work with endpoints, see [Sam
 
 This section provides details on each operation.
 
-#### Creating an endpoint
+### Creating an endpoint
 
 This operation creates an endpoint for a device and mobile app on one of the supported push notification services such as GCM and APNS. The endpoint Amazon Resource Name (ARN) that is returned when using createEndpoint can then be used by the publish action to send a message to a mobile app or by the subscribe action for subscription to a topic. The action is idempotent, so if the requester already owns an endpoint with the same device token and attributes, that endpoint's ARN is returned without creating a new endpoint. For more information, see [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html).
 
@@ -40,7 +40,7 @@ When using this operation with Baidu, two attributes must be provided: ChannelId
     <token>{$ctx:token}</token>
 </amazonsns.createEndpoint>
 ```
-###### Properties
+#### Properties
 * customUserData: Optional - Arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.
 * platformApplicationArn: Required - PlatformApplicationArn returned from CreatePlatformApplication is used to create an endpoint.
 * token: Required - Unique identifier created by the notification service for an app on a device. The specific name for the token will vary depending on the notification service being used. For example, when using APNS as the notification service, you need the device token. Alternatively, when using GCM or ADM, the device token equivalent is called the registration ID.
@@ -61,7 +61,7 @@ Following is a sample REST/XML request that can be handled by the createEndPoint
    <customUserData>Custom User Data</customUserData>
 </createEndpoint> 
 ```
-#### Deleting an endpoint
+### Deleting an endpoint
 This operation deletes the endpoint from Amazon SNS. This action is idempotent. For more information, see [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html). 
 
 ### deleteEndpoint
@@ -71,7 +71,7 @@ This operation deletes the endpoint from Amazon SNS. This action is idempotent. 
     <endpointArn>{$ctx:endpointArn}</endpointArn>
 </amazonsns.deleteEndpoint> 
 ```
-###### Properties
+#### Properties
 * endpointArn: Required - EndpointArn of endpoint to delete. 
 
 ###### Sample request
@@ -88,7 +88,7 @@ Following is a sample REST/XML request that can be handled by the deleteEndpoint
    <endpointArn>arn:aws:sns:us-west-2:899940420354:endpoint/GCM/gcmpushapp/95d31fb9-cfa7-32f6-982c-40c5cb470dcd</endpointArn>
 </deleteEndpoint>
 ```
-#### Listing endpoints
+### Listing endpoints
 This operation lists the endpoints and endpoint attributes for devices in a supported push notification service such as GCM and APNS. The results are paginated and return a limited list of endpoints, up to 100. If additional records are available after the first page of results, a NextToken string will be returned. To receive the next page, you call listEndpoints again using the NextToken string received from the previous call. When there are no more records to return, NextToken will be null. For more information, see Using Amazon SNS Mobile Push Notifications.
 
 #### listEndpoints
@@ -98,7 +98,7 @@ This operation lists the endpoints and endpoint attributes for devices in a supp
     <nextToken>{$ctx:nextToken}</nextToken>
 </amazonsns.listEndpoints> 
 ```
-###### Properties
+#### Properties
 
 * platformApplicationArn: Required - PlatformApplicationArn for list endpoints.
 * nextToken: Optional - NextToken string is used when calling the listEndpoints operation to retrieve additional records that are available after the first page results.
@@ -119,7 +119,7 @@ Following is a sample REST/XML request that can be handled by the listEndpoints 
    <nextToken></nextToken>
 </listEndpoints>
 ```
-#### Subscribing to an endpoint
+### Subscribing to an endpoint
 
 This operation prepares to subscribe to an endpoint by sending the endpoint a confirmation message. To actually create a subscription, the endpoint owner must call the ConfirmSubscriptionaction with the token from the confirmation message. Confirmation tokens are valid for three days.
 
@@ -132,7 +132,7 @@ This operation prepares to subscribe to an endpoint by sending the endpoint a co
 </amazonsns.subscribe> 
 ```
 
-###### Properties
+#### Properties
 
 * protocol: Required - The protocol you want to use. Supported protocols include:
 * http - Delivery of a JSON-encoded message via HTTP POST.
@@ -192,7 +192,7 @@ Following is a sample REST/XML request that can be handled by the subscribe oper
    <endpoint>user.wso2.connector@gmail.com</endpoint>
 </subscribe>
 ```
-#### Deleting a subscription
+### Deleting a subscription
 This operation deletes a subscription by unsubscribing. If the subscription requires authentication for deletion, only the owner of the subscription or the topic's owner can unsubscribe, and an AWS signature is required. If the unsubscribe call does not require authentication and the requester is not the subscription owner, a final cancellation message is delivered to the endpoint, so that the endpoint owner can easily resubscribe to the topic if the unsubscribe request was unintended.
 
 #### unsubscribe
@@ -203,7 +203,7 @@ This operation deletes a subscription by unsubscribing. If the subscription requ
 </amazonsns.unsubscribe> 
 ```
 
-##### Properties
+#### Properties
 * suscriptionArn: Required - The ARN of the subscription to be deleted.
 Sample request
 Following is a sample REST/XML request that can be handled by the unsubscribe operation.
@@ -218,7 +218,7 @@ Following is a sample REST/XML request that can be handled by the unsubscribe op
    <subscriptionArn></subscriptionArn>
 </unsubscribe>
 ```
-#### Listing subscriptions
+### Listing subscriptions
 
 This operation returns a list of the requester's subscriptions. Each call returns a limited list of subscriptions, up to 100. If there are more subscriptions, a NextToken is also returned. Use the nextToken property in a new listSubscriptions call to get further results.
 
@@ -228,7 +228,7 @@ This operation returns a list of the requester's subscriptions. Each call return
     <nextToken>{$ctx:nextToken}</nextToken>
 </amazonsns.listSubscriptions>
 ```
-###### Properties
+#### Properties
 * nextToken: Optional - Token returned by the previous listSubscriptions request.
 
 ###### Sample request
@@ -244,7 +244,7 @@ Following is a sample REST/XML request that can be handled by the listSubscripti
    <nextToken></nextToken>
 </listSubscriptions>
 ```
-#### Listing subscriptions by topic
+### Listing subscriptions by topic
 This operation returns a list of the subscriptions to a specific topic. Each call returns a limited list of subscriptions, up to 100. If there are more subscriptions, a NextToken is also returned. Use the nextToken property in a new listSubscriptionsByTopic call to get further results.
 
 listSubscriptionsByTopic
@@ -254,7 +254,7 @@ listSubscriptionsByTopic
     <topicArn>{$ctx:topicArn}</topicArn>
 </amazonsns.listSubscriptionsByTopic> 
 ```
-###### Properties
+#### Properties
 * nextToken: Optional - Token returned by the previous listSubscriptionsByTopic request.
 * topicArn: Required - The ARN of the topic for which you wish to find subscriptions.
 
@@ -272,7 +272,7 @@ Following is a sample REST/XML request that can be handled by the listSubscripti
    <topicArn>arn:aws:sns:us-west-2:899940420354:TopicName1</topicArn>
 </listSubscriptionsByTopic>
 ```
-#### Confirming a subscription
+### Confirming a subscription
 This verifies an endpoint owner's intent to receive messages by validating the token sent to the endpoint by an earlier subscribe action. If the token is valid, the action creates a new subscription and returns its Amazon Resource Name (ARN). This call requires an AWS signature only when the authenticateOnUnsubscribe flag is set to true.
 
 #### confirmSubscription
@@ -285,7 +285,7 @@ This verifies an endpoint owner's intent to receive messages by validating the t
 </amazonsns.confirmSubscription>
 ```
 
-###### Properties
+#### Properties
 * token: Required - Short-lived token sent to an endpoint during the subscribe action.
 * topicArn: Required - The ARN of the topic for which you wish to confirm a subscription.
 
@@ -305,7 +305,7 @@ Following is a sample REST/XML request that can be handled by the confirmSubscri
    <authenticateOnUnsubscribe></authenticateOnUnsubscribe>
 </confirmSubscription> 
 ```
-#### Retrieving endpoint attributes 
+### Retrieving endpoint attributes 
 The getEndpointAttributes operation retrieves the endpoint attributes for a device on one of the supported push notification services, such as GCM and APNS. For more information, see Using Amazon SNS Mobile Push Notifications.
 
 #### getEndpointAttributes
@@ -314,7 +314,7 @@ The getEndpointAttributes operation retrieves the endpoint attributes for a devi
    <endpointArn>{$ctx:endpointArn}</endpointArn>
 </amazonsns.getEndpointAttributes>
 ```
-###### Properties
+#### Properties
 * endpointArn: Required - The EndpointArn to get input for retrieving endpoint attributes.
 ###### Sample request
 Following is a sample REST/XML request that can be handled by the getEndpointAttributes operation.
@@ -330,7 +330,7 @@ Following is a sample REST/XML request that can be handled by the getEndpointAtt
 </getEndpointAttributes> 
 ```
 
-#### Setting Endpoint Attributes
+### Setting Endpoint Attributes
 The setEndpointAttributes operation sets endpoint attributes for a device on one of the supported push notification services, such as GCM and APNS.
 
 #### setEndpointAttributes
@@ -341,12 +341,12 @@ The setEndpointAttributes operation sets endpoint attributes for a device on one
    <attributesEntryValue>{$ctx:attributesEntryValue}</attributesEntryValue>
 </amazonsns.setEndpointAttributes>
 ```
-###### Properties
+#### Properties
 * endpointArn: Required - The EndpointArn to set endpoint attributes.
 * attributesEntryKey: Required - The key attribute of endpoints. For example, CustomUserData.
 * attributesEntryValue: Required - The new value for the key attribute.
 
-###### Info
+ Info
 
 attributesEntry is a map of endpoint attributes. Attributes in this map include the following:  
  * CustomUserData : arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.   
@@ -369,7 +369,7 @@ Following is a sample REST/XML request that can be handled by the setEndpointAtt
  </setEndpointAttributes>
 ```
 
-##### Get Subscription Attributes
+### Get Subscription Attributes
 The getSubscriptionAttributes operation allows you to returns all of the properties of a subscription.
 
 #### getSubscriptionAttributes
@@ -378,7 +378,7 @@ The getSubscriptionAttributes operation allows you to returns all of the propert
    <subscriptionArn>{$ctx:subscriptionArn}</subscriptionArn>
 </amazonsns.getSubscriptionAttributes>
 ```
-Properties
+#### Properties
 subscriptionArn: Required - The ARN of the subscription whose properties you want to get.
 Sample request
 Following is a sample REST/XML request that can be handled by the getSubscriptionAttributes operation.
@@ -393,7 +393,7 @@ Following is a sample REST/XML request that can be handled by the getSubscriptio
     <subscriptionArn>arn:aws:sns:us-west-2:492228198692:Topic_A:57166721-f47a-49d3-82ed-5f0bae009437</subscriptionArn>
  </getSubscriptionAttributes>
 ```
-#### Set Subscription Attributes
+### Set Subscription Attributes
 The setSubscriptionAttributes operation allows a subscription owner to set an attribute of the topic to a new value.
 
 #### setSubscriptionAttributes
@@ -404,7 +404,7 @@ The setSubscriptionAttributes operation allows a subscription owner to set an at
    <attributeValue>{$ctx:attributeValue}</attributeValue>
 </amazonsns.setSubscriptionAttributes>
 ```
-###### Properties
+#### Properties
 * subscriptionArn: Required - The ARN of the subscription to modify.
 * attributeName: Required - The name of the attribute you want to set. Only a subset of the subscriptions attributes are mutable. (Valid values: DeliveryPolicy | RawMessageDelivery)
 * attributeValue: Optional - The new value for the attribute in JSON format.
