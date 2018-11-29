@@ -1,6 +1,6 @@
 
 # Working with Topics in Amazon SNS
-[[Overview ]](#overview) [[ Operation details ]] [[ Sample configuration ]](#sample-configuration)
+[[Overview ]](#overview) [[ Operation details ]](#operation-details) [[ Sample configuration ]](#sample-configuration)
 ### Overview
 The following operations allow you to work with topics. Click an operation name to see details on how to use it.
 
