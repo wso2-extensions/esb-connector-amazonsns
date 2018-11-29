@@ -6,7 +6,7 @@ The Amazon SNS [Connector](https://docs.wso2.com/display/EI640/Working+with+Conn
 
 | Connector version | Supported AmazonSNS API version | Supported WSO2 ESB/EI version |
 | ------------- | ------------- | ------------- |
-| [1.0.1](https://github.com/wso2-extensions/esb-connector-zendesk/tree/org.wso2.carbon.connector.zendesk-1.0.2) | V2 | ESB 5.0.0, ESB 4.9.0, EI 6.3.0, EI 6.4.0    |
+| [1.0.1](https://github.com/wso2-extensions/esb-connector-zendesk/tree/org.wso2.carbon.connector.zendesk-1.0.2) | V2 | ESB 4.9.0 EI 6.1.1 EI 6.4.0     |
 
 ### Getting started 
 To get started, go to [Configuring Amazon SNS Operations](operation.md). Once you have completed your configurations, you can perform various operations with the connector.
@@ -14,9 +14,3 @@ To get started, go to [Configuring Amazon SNS Operations](operation.md). Once yo
 ### Additional information
 
 For general information on using [connectors](https://docs.wso2.com/display/ESB500/Using+a+Connector) and their operations in your ESB configurations, see Using a Connector. To download the connector, go to https://store.wso2.com/store/assets/esbconnector/AmazonSNS, and click Download Connector. Then you can add and enable the connector in your ESB instance.
-
- 
-### How You Can Contribute
-You can create a third party connector and publish in WSO2 Connector Store.
-
-https://docs.wso2.com/display/ESBCONNECTORS/Creating+a+Third+Party+Connector+and+Publishing+in+WSO2+Connector+Store
