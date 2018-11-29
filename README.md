@@ -9,7 +9,7 @@ The Amazon SNS [Connector](https://docs.wso2.com/display/EI640/Working+with+Conn
 | [1.0.1](https://github.com/wso2-extensions/esb-connector-zendesk/tree/org.wso2.carbon.connector.zendesk-1.0.2) | V2 | ESB 4.9.0 EI 6.1.1 EI 6.4.0     |
 
 ### Getting started 
-To get started, go to [Configuring Amazon SNS Operations](operation.md). Once you have completed your configurations, you can perform various operations with the connector.
+To get started, go to [Configuring Amazon SNS Operations](operation.md) Once you have completed your configurations, you can perform various operations with the connector.
 
 ### Additional information
 
