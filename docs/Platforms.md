@@ -82,7 +82,7 @@ Following is a sample REST/XML request that can be handled by the getPlatformApp
 </getPlatformApplicationAttributes>
 ```
 
-#### List Platform Applications
+### List Platform Applications
 This operation lists the platform application objects for the supported push notification services, such as APNS and GCM.
 
 ### listPlatformApplications
@@ -134,7 +134,7 @@ Following is a sample REST/XML request that can be handled by the deletePlatform
    <platformApplicationArn>arn:aws:sns:us-west-2:492228198692:app/GCM/platformApp</platformApplicationArn>
 </deletePlatformApplication>
 ```
-#### Set Platform Application Attributes
+### Set Platform Application Attributes
 This operation sets the attributes of the platform application object for the supported push notification services, such as APNS and GCM.
 
 #### setPlatformApplicationAttributes
