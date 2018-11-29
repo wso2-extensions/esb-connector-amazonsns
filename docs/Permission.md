@@ -8,14 +8,13 @@ The following operations allow you to work with permissions. Click an operation 
 
 For a sample proxy service that illustrates how to work with permissions, see [Sample configuration](#Sample-configuration).
 
-#### addPermission
-
-#### Adds a statement to a topic's access control policy.
-
-removePermission	Removes a statement from a topic's access control policy.
-
 ### Operation details
 This section provides details on each operation.
+
+| Operation | Description |
+| --- | --- |
+| addPermission | Adds a statement to a topic's access control policy.|
+| removePermission | Removes a statement from a topic's access control policy.|
 
 #### Add Permission
 This operation adds a statement to a topic's access control policy, granting access for the specified AWS accounts to the specified actions.
