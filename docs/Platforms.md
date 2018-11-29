@@ -8,15 +8,13 @@ The following operations allow you to work with platforms. Click an operation na
 
 For a sample proxy service that illustrates how to work with platforms, see Sample configuration.
 
-#### createPlatformApplication
-
-#### Creates a platform application.
-
-
-getPlatformApplicationAttributes	Retrieves the attributes of the platform application.
-listPlatformApplications	Lists the platform applications.
-deletePlatformApplication	Deletes a platform applications.
-setPlatformApplicationAttributes	Sets the attributes of the platform.
+| Operation | Description |
+| --- | --- |
+| createPlatformApplication | Creates a platform application.|
+| getPlatformApplicationAttributes | Retrieves the attributes of the platform application.|
+| listPlatformApplications | Lists the platform applications. |
+| deletePlatformApplication | Deletes a platform applications. |
+| setPlatformApplicationAttributes | Sets the attributes of the platform. |
 
 ### Operation details
 This section provides details on the operations.
