@@ -16,7 +16,7 @@ This section provides details on each operation.
 | addPermission | Adds a statement to a topic's access control policy.|
 | removePermission | Removes a statement from a topic's access control policy.|
 
-#### Add Permission
+### Add Permission
 This operation adds a statement to a topic's access control policy, granting access for the specified AWS accounts to the specified actions.
 
 #### addPermission
@@ -50,7 +50,7 @@ Following is a sample REST/XML request that can be handled by the addPermission 
     <version></version>
 </addPermission>
 ```
-#### Remove Permission
+### Remove Permission
 This operation removes a statement from a topic's access control policy.
 
 #### removePermission
