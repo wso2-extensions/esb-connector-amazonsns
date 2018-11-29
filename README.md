@@ -13,7 +13,7 @@ To get started, go to [Configuring Amazon SNS Operations](operation.md). Once yo
 
 ### Additional information
 
-For general information on using connectors and their operations in your ESB configurations, see Using a Connector. To download the connector, go to https://store.wso2.com/store/assets/esbconnector/AmazonSNS, and click Download Connector. Then you can add and enable the connector in your ESB instance.
+For general information on using [connectors](https://docs.wso2.com/display/ESB500/Using+a+Connector) and their operations in your ESB configurations, see Using a Connector. To download the connector, go to https://store.wso2.com/store/assets/esbconnector/AmazonSNS, and click Download Connector. Then you can add and enable the connector in your ESB instance.
 
  
 ### How You Can Contribute
