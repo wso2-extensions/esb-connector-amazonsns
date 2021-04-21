@@ -20,6 +20,7 @@ package org.wso2.carbon.connector.amazonsns.auth;
 
 import org.apache.synapse.MessageContext;
 import org.apache.synapse.SynapseConstants;
+import org.apache.commons.text.StringEscapeUtils;
 import org.wso2.carbon.connector.amazonsns.constants.AmazonSNSConstants;
 import org.wso2.carbon.connector.core.AbstractConnector;
 
@@ -88,7 +89,9 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                 payloadStrBuilder.append('"');
                 payloadStrBuilder.append(':');
                 payloadStrBuilder.append('"');
-                payloadStrBuilder.append(entry.getValue());
+                if (entry.getKey().equals("Message")) {
+                    payloadStrBuilder.append(StringEscapeUtils.escapeJava(entry.getValue()));
+                }
                 payloadStrBuilder.append('"');
                 payloadStrBuilder.append(',');
             }
