@@ -18,14 +18,12 @@
 
 package org.wso2.carbon.connector.amazonsns.auth;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.synapse.MessageContext;
 import org.apache.synapse.SynapseConstants;
-import org.apache.commons.text.StringEscapeUtils;
 import org.wso2.carbon.connector.amazonsns.constants.AmazonSNSConstants;
 import org.wso2.carbon.connector.core.AbstractConnector;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -34,7 +32,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.TreeMap;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Class AmazonSNSAuthConnector which helps to generate authentication signature for Amazon SNS WSO2 ESB
@@ -141,11 +146,11 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                  * further modifications to preserve unreserved characters as per the API guide
                  * (http://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html)
                  */
+                log.info("Creating request payload.");
                 requestPayload =
                         payloadBuilder.substring(0, payloadBuilder.length() - 1)
                                 .replace(AmazonSNSConstants.PLUS, AmazonSNSConstants.URL_ENCODED_PLUS)
-                                .replace(AmazonSNSConstants.URL_ENCODED_TILT, AmazonSNSConstants.TILT)
-                                .replace(AmazonSNSConstants.ASTERISK, AmazonSNSConstants.URL_ENCODED_ASTERISK);
+                                .replace(AmazonSNSConstants.URL_ENCODED_TILT, AmazonSNSConstants.TILT);
             }
 
             canonicalRequest.append(bytesToHex(hash(messageContext, requestPayload)).toLowerCase());
