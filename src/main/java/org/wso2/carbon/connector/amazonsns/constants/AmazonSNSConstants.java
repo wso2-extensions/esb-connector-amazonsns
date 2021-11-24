@@ -642,4 +642,44 @@ public class AmazonSNSConstants {
      */
     public static final String ATTRIBUTE_ENTRIES = "uri.var.attributeEntries";
 
+    /**
+     * Constant for messageGroupId.
+     */
+    public static final String MESSAGE_GROUP_ID = "uri.var.messageGroupId";
+
+    /**
+     * Constant for API messageGroupId.
+     */
+    public static final String API_MESSAGE_GROUP_ID = "MessageGroupId";
+
+    /**
+     * Constant for messageDeduplicationId
+     */
+    public static final String MESSAGE_DEDUPLICATION_ID = "uri.var.messageDeduplicationId";
+
+    /**
+     * Constant for API messageDeduplicationId.
+     */
+    public static final String API_MESSAGE_DEDUPLICATION_ID = "MessageDeduplicationId";
+
+    /**
+     * Constant for phoneNumber.
+     */
+    public static final String PHONE_NUMBER = "uri.var.phoneNumber";
+
+    /**
+     * Constant for API phoneNumber.
+     */
+    public static final String API_PHONE_NUMBER = "PhoneNumber";
+
+    /**
+     * Constant for messageAttributes.
+     */
+    public static final String MESSAGE_ATTRIBUTES = "uri.var.messageAttributes";
+
+    /**
+     * Constant for API messageAttributes.
+     */
+    public static final String API_MESSAGE_ATTRIBUTES = "MessageAttributes";
+
 }

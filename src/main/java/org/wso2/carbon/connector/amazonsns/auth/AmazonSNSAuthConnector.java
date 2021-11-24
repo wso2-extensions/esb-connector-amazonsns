@@ -24,8 +24,6 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.wso2.carbon.connector.amazonsns.constants.AmazonSNSConstants;
 import org.wso2.carbon.connector.core.AbstractConnector;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -34,7 +32,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.TreeMap;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Class AmazonSNSAuthConnector which helps to generate authentication signature for Amazon SNS WSO2 ESB
@@ -79,23 +84,31 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
 
             for (Map.Entry<String, String> entry : parametersMap.entrySet()) {
 
-                payloadBuilder.append(URLEncoder.encode(entry.getKey(), charSet));
-                payloadBuilder.append(AmazonSNSConstants.EQUAL);
-                payloadBuilder.append(URLEncoder.encode(entry.getValue(), charSet));
-                payloadBuilder.append(AmazonSNSConstants.AMPERSAND);
-
-                payloadStrBuilder.append('"');
-                payloadStrBuilder.append(entry.getKey());
-                payloadStrBuilder.append('"');
-                payloadStrBuilder.append(':');
-                payloadStrBuilder.append('"');
-                if (entry.getKey().equals("Message")) {
-                    payloadStrBuilder.append(StringEscapeUtils.escapeJava(entry.getValue()));
+                if (entry.getKey().equals(AmazonSNSConstants.API_MESSAGE_ATTRIBUTES)) {
+                    payloadBuilder.append(getMessageAttributes(entry.getValue()));
                 } else {
-                    payloadStrBuilder.append(entry.getValue());
+                    payloadBuilder.append(URLEncoder.encode(entry.getKey(), charSet));
+                    payloadBuilder.append(AmazonSNSConstants.EQUAL);
+                    payloadBuilder.append(URLEncoder.encode(entry.getValue(), charSet));
+                    payloadBuilder.append(AmazonSNSConstants.AMPERSAND);
                 }
-                payloadStrBuilder.append('"');
-                payloadStrBuilder.append(',');
+
+                if (entry.getKey().equals(AmazonSNSConstants.API_MESSAGE_ATTRIBUTES)) {
+                    payloadStrBuilder.append(getMessageAttributesList(entry.getValue()));
+                } else {
+                    payloadStrBuilder.append('"');
+                    payloadStrBuilder.append(entry.getKey());
+                    payloadStrBuilder.append('"');
+                    payloadStrBuilder.append(':');
+                    payloadStrBuilder.append('"');
+                    if (entry.getKey().equals("Message")) {
+                        payloadStrBuilder.append(StringEscapeUtils.escapeJava(entry.getValue()));
+                    } else {
+                        payloadStrBuilder.append(entry.getValue());
+                    }
+                    payloadStrBuilder.append('"');
+                    payloadStrBuilder.append(',');
+                }
             }
 
             if (payloadStrBuilder.length() > 0) {
@@ -216,6 +229,44 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
         }
     }
 
+    private String getMessageAttributes(String list) {
+        String attributeListStr = "";
+        String[] attrList = list.split("],");
+        for (int i = 0; i < attrList.length; i++) {
+            String attribute = attrList[i].substring(1);
+            if (i == attrList.length-1) {
+                attribute = attribute.substring(0,attribute.length()-1);
+            }
+            String[] properties = attribute.split(",", 3);
+            attributeListStr = attributeListStr
+                    .concat("MessageAttributes.entry.").concat(String.valueOf(i+1)).concat(".Name=")
+                    .concat(properties[0]).concat("&MessageAttributes.entry.").concat(String.valueOf(i+1))
+                    .concat(".Value.DataType=").concat(properties[1]).concat("&MessageAttributes.entry.")
+                    .concat(String.valueOf(i+1)).concat(".Value.StringValue=").concat(properties[2]
+                    .concat(AmazonSNSConstants.AMPERSAND));
+        }
+        return attributeListStr;
+    }
+
+    private String getMessageAttributesList(String list) {
+        String attributeListStr = "";
+        String[] attrList = list.split("],");
+        for (int i = 0; i < attrList.length; i++) {
+            String attribute = attrList[i].substring(1);
+            if (i == attrList.length-1) {
+                attribute = attribute.substring(0,attribute.length()-1);
+            }
+            String[] properties = attribute.split(",", 3);
+            attributeListStr = attributeListStr
+                    .concat("\"MessageAttributes.entry.").concat(String.valueOf(i+1)).concat(".Name\":\"")
+                    .concat(properties[0])
+                    .concat("\",\"MessageAttributes.entry.").concat(String.valueOf(i+1)).concat(".Value.DataType\":\"")
+                    .concat(properties[1]).concat("\",\"MessageAttributes.entry.").concat(String.valueOf(i+1))
+                    .concat(".Value.StringValue\":\"").concat(properties[2]).concat("\",");
+        }
+        return attributeListStr;
+    }
+
     /**
      * getKeys method returns a list of parameter keys.
      *
@@ -235,7 +286,9 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                 AmazonSNSConstants.ATTRIBUTES_ENTRY_VALUE, AmazonSNSConstants.ENDPOINT_ARN,
                 AmazonSNSConstants.CUSTOM_USER_DATA, AmazonSNSConstants.ATTRIBUTE_NAME,
                 AmazonSNSConstants.ATTRIBUTE_VALUE, AmazonSNSConstants.LABEL,
-                AmazonSNSConstants.ACTION_NAME_MEMBER, AmazonSNSConstants.ACCOUNT_ID_MEMBER };
+                AmazonSNSConstants.ACTION_NAME_MEMBER, AmazonSNSConstants.ACCOUNT_ID_MEMBER,
+                AmazonSNSConstants.MESSAGE_GROUP_ID, AmazonSNSConstants.MESSAGE_DEDUPLICATION_ID,
+                AmazonSNSConstants.PHONE_NUMBER, AmazonSNSConstants.MESSAGE_ATTRIBUTES};
     }
 
     /**
@@ -368,6 +421,10 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
         map.put(AmazonSNSConstants.MESSAGE, AmazonSNSConstants.API_MESSAGE);
         map.put(AmazonSNSConstants.MESSAGE_STRUCTURE, AmazonSNSConstants.API_MESSAGE_STRUCTURE);
         map.put(AmazonSNSConstants.NEXT_TOKEN, AmazonSNSConstants.API_NEXT_TOKEN);
+        map.put(AmazonSNSConstants.PHONE_NUMBER, AmazonSNSConstants.API_PHONE_NUMBER);
+        map.put(AmazonSNSConstants.MESSAGE_GROUP_ID, AmazonSNSConstants.API_MESSAGE_GROUP_ID);
+        map.put(AmazonSNSConstants.MESSAGE_DEDUPLICATION_ID, AmazonSNSConstants.API_MESSAGE_DEDUPLICATION_ID);
+        map.put(AmazonSNSConstants.MESSAGE_ATTRIBUTES, AmazonSNSConstants.API_MESSAGE_ATTRIBUTES);
 
         // Header parameters
         map.put(AmazonSNSConstants.HOST, AmazonSNSConstants.API_HOST);
