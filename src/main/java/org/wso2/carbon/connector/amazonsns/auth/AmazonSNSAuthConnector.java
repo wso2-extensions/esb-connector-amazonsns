@@ -168,8 +168,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                 requestPayload =
                         payloadBuilder.substring(0, payloadBuilder.length() - 1)
                                 .replace(AmazonSNSConstants.PLUS, AmazonSNSConstants.URL_ENCODED_PLUS)
-                                .replace(AmazonSNSConstants.URL_ENCODED_TILT, AmazonSNSConstants.TILT)
-                                .replace(AmazonSNSConstants.ASTERISK, AmazonSNSConstants.URL_ENCODED_ASTERISK);
+                                .replace(AmazonSNSConstants.URL_ENCODED_TILT, AmazonSNSConstants.TILT);
             }
 
             canonicalRequest.append(bytesToHex(hash(messageContext, requestPayload)).toLowerCase());
