@@ -32,8 +32,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
@@ -84,30 +88,37 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
 
             for (Map.Entry<String, String> entry : parametersMap.entrySet()) {
 
-                if (entry.getKey().equals(AmazonSNSConstants.API_MESSAGE_ATTRIBUTES)) {
-                    payloadBuilder.append(getMessageAttributes(entry.getValue()));
-                } else {
-                    payloadBuilder.append(URLEncoder.encode(entry.getKey(), charSet));
-                    payloadBuilder.append(AmazonSNSConstants.EQUAL);
-                    payloadBuilder.append(URLEncoder.encode(entry.getValue(), charSet));
-                    payloadBuilder.append(AmazonSNSConstants.AMPERSAND);
-                }
+                switch (entry.getKey()) {
+                    case AmazonSNSConstants.API_MESSAGE_ATTRIBUTES:
+                        payloadBuilder.append(getMessageAttributes(entry.getValue()));
+                        payloadStrBuilder.append(getMessageAttributesList(entry.getValue()));
+                        break;
+                    case AmazonSNSConstants.API_ATTRIBUTES:
+                        payloadBuilder.append(getAttributes(entry.getValue()));
+                        payloadStrBuilder.append(getAttributesList(entry.getValue()));
+                        break;
+                    case AmazonSNSConstants.API_TAGS:
+                        payloadBuilder.append(getTags(entry.getValue()));
+                        payloadStrBuilder.append(getMessageTagsList(entry.getValue()));
+                        break;
+                    default:
+                        payloadBuilder.append(URLEncoder.encode(entry.getKey(), charSet));
+                        payloadBuilder.append(AmazonSNSConstants.EQUAL);
+                        payloadBuilder.append(URLEncoder.encode(entry.getValue(), charSet));
+                        payloadBuilder.append(AmazonSNSConstants.AMPERSAND);
 
-                if (entry.getKey().equals(AmazonSNSConstants.API_MESSAGE_ATTRIBUTES)) {
-                    payloadStrBuilder.append(getMessageAttributesList(entry.getValue()));
-                } else {
-                    payloadStrBuilder.append('"');
-                    payloadStrBuilder.append(entry.getKey());
-                    payloadStrBuilder.append('"');
-                    payloadStrBuilder.append(':');
-                    payloadStrBuilder.append('"');
-                    if (entry.getKey().equals("Message")) {
-                        payloadStrBuilder.append(StringEscapeUtils.escapeJava(entry.getValue()));
-                    } else {
-                        payloadStrBuilder.append(entry.getValue());
-                    }
-                    payloadStrBuilder.append('"');
-                    payloadStrBuilder.append(',');
+                        payloadStrBuilder.append('"');
+                        payloadStrBuilder.append(entry.getKey());
+                        payloadStrBuilder.append('"');
+                        payloadStrBuilder.append(':');
+                        payloadStrBuilder.append('"');
+                        if (entry.getKey().equals("Message")) {
+                            payloadStrBuilder.append(StringEscapeUtils.escapeJava(entry.getValue()));
+                        } else {
+                            payloadStrBuilder.append(entry.getValue());
+                        }
+                        payloadStrBuilder.append('"');
+                        payloadStrBuilder.append(',');
                 }
             }
 
@@ -229,42 +240,125 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
         }
     }
 
+    private String getAttributes(String attributes) {
+
+        String attributesList = "";
+        List<String> keyValueList = getKeyValueList(attributes);
+
+        for (int i = 0; i < keyValueList.size(); i++) {
+            String[] attribute = keyValueList.get(i).split(AmazonSNSConstants.COMMA);
+            attributesList = attributesList
+                    .concat(AmazonSNSConstants.ATTRIBUTES_ENTRY).concat(AmazonSNSConstants.PERIOD)
+                    .concat(String.valueOf(i+1)).concat(".key=").concat(attribute[0])
+                    .concat(AmazonSNSConstants.AMPERSAND).concat(AmazonSNSConstants.ATTRIBUTES_ENTRY)
+                    .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1)).concat(".value=")
+                    .concat(attribute[1]).concat(AmazonSNSConstants.AMPERSAND);
+        }
+        return attributesList;
+    }
+
+    private String getAttributesList(String attributes) {
+
+        String attributesList = "";
+        List<String> keyValueList = getKeyValueList(attributes);
+
+        for (int i = 0; i < keyValueList.size(); i++) {
+            String[] attribute = keyValueList.get(i).split(AmazonSNSConstants.COMMA);
+            attributesList =
+                    attributesList.concat("\"").concat(AmazonSNSConstants.ATTRIBUTES_ENTRY)
+                                  .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1)).concat(".key\":\"")
+                                  .concat(attribute[0]).concat("\",\"").concat(AmazonSNSConstants.ATTRIBUTES_ENTRY)
+                                  .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1))
+                                  .concat(".value\":\"").concat(attribute[1]).concat("\",");
+        }
+        return attributesList;
+    }
+
+    private String getTags(String tags) {
+
+        String tagsList = "";
+        List<String> keyValueList = getKeyValueList(tags);
+
+        for (int i = 0; i < keyValueList.size(); i++) {
+            String[] tag = keyValueList.get(i).split(AmazonSNSConstants.COMMA);
+            tagsList = tagsList.concat(AmazonSNSConstants.TAGS_MEMBER).concat(AmazonSNSConstants.PERIOD)
+                               .concat(String.valueOf(i+1)).concat(".Key=").concat(tag[0]).concat("&")
+                               .concat(AmazonSNSConstants.TAGS_MEMBER).concat(AmazonSNSConstants.PERIOD)
+                               .concat(String.valueOf(i+1)).concat(".Value=").concat(tag[1])
+                               .concat(AmazonSNSConstants.AMPERSAND);
+        }
+        return tagsList;
+    }
+
+    private String getMessageTagsList(String tags) {
+
+        String tagsList = "";
+        List<String> keyValueList = getKeyValueList(tags);
+
+        for (int i = 0; i < keyValueList.size(); i++) {
+            String[] tag = keyValueList.get(i).split(AmazonSNSConstants.COMMA);
+            tagsList = tagsList.concat("\"").concat(AmazonSNSConstants.TAGS_MEMBER).concat(AmazonSNSConstants.PERIOD)
+                               .concat(String.valueOf(i+1)).concat(".Key\":\"").concat(tag[0]).concat("\",\"")
+                               .concat(AmazonSNSConstants.TAGS_MEMBER).concat(AmazonSNSConstants.PERIOD)
+                               .concat(String.valueOf(i+1)).concat(".Value\":\"").concat(tag[1]).concat("\",");
+        }
+        return tagsList;
+    }
+
     private String getMessageAttributes(String list) {
+
         String attributeListStr = "";
-        String[] attrList = list.split("],");
+        String[] attrList = list.split(AmazonSNSConstants.CLOSED_SQUARE_BRACKET + AmazonSNSConstants.COMMA);
         for (int i = 0; i < attrList.length; i++) {
             String attribute = attrList[i].substring(1);
             if (i == attrList.length-1) {
                 attribute = attribute.substring(0,attribute.length()-1);
             }
-            String[] properties = attribute.split(",", 3);
+            String[] properties = attribute.split(AmazonSNSConstants.COMMA, 3);
             attributeListStr = attributeListStr
-                    .concat("MessageAttributes.entry.").concat(String.valueOf(i+1)).concat(".Name=")
-                    .concat(properties[0]).concat("&MessageAttributes.entry.").concat(String.valueOf(i+1))
-                    .concat(".Value.DataType=").concat(properties[1]).concat("&MessageAttributes.entry.")
-                    .concat(String.valueOf(i+1)).concat(".Value.StringValue=").concat(properties[2]
-                    .concat(AmazonSNSConstants.AMPERSAND));
+                    .concat(AmazonSNSConstants.MESSAGE_ATTRIBUTES_ENTRY).concat(AmazonSNSConstants.PERIOD)
+                    .concat(String.valueOf(i+1)).concat(".Name=").concat(properties[0])
+                    .concat(AmazonSNSConstants.AMPERSAND).concat(AmazonSNSConstants.MESSAGE_ATTRIBUTES_ENTRY)
+                    .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1)).concat(".Value.DataType=")
+                    .concat(properties[1]).concat(AmazonSNSConstants.AMPERSAND)
+                    .concat(AmazonSNSConstants.MESSAGE_ATTRIBUTES_ENTRY).concat(AmazonSNSConstants.PERIOD)
+                    .concat(String.valueOf(i+1)).concat(".Value.StringValue=").concat(properties[2])
+                    .concat(AmazonSNSConstants.AMPERSAND);
         }
         return attributeListStr;
     }
 
     private String getMessageAttributesList(String list) {
+
         String attributeListStr = "";
-        String[] attrList = list.split("],");
+        String[] attrList = list.split(AmazonSNSConstants.CLOSED_SQUARE_BRACKET + AmazonSNSConstants.COMMA);
         for (int i = 0; i < attrList.length; i++) {
             String attribute = attrList[i].substring(1);
             if (i == attrList.length-1) {
                 attribute = attribute.substring(0,attribute.length()-1);
             }
-            String[] properties = attribute.split(",", 3);
+            String[] properties = attribute.split(AmazonSNSConstants.COMMA, 3);
             attributeListStr = attributeListStr
-                    .concat("\"MessageAttributes.entry.").concat(String.valueOf(i+1)).concat(".Name\":\"")
-                    .concat(properties[0])
-                    .concat("\",\"MessageAttributes.entry.").concat(String.valueOf(i+1)).concat(".Value.DataType\":\"")
-                    .concat(properties[1]).concat("\",\"MessageAttributes.entry.").concat(String.valueOf(i+1))
-                    .concat(".Value.StringValue\":\"").concat(properties[2]).concat("\",");
+                    .concat("\"").concat(AmazonSNSConstants.MESSAGE_ATTRIBUTES_ENTRY)
+                    .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1)).concat(".Name\":\"")
+                    .concat(properties[0]).concat("\",\"").concat(AmazonSNSConstants.MESSAGE_ATTRIBUTES_ENTRY)
+                    .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1)).concat(".Value.DataType\":\"")
+                    .concat(properties[1]).concat("\",\"").concat(AmazonSNSConstants.MESSAGE_ATTRIBUTES_ENTRY)
+                    .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1)).concat(".Value.StringValue\":\"")
+                    .concat(properties[2]).concat("\",");
         }
         return attributeListStr;
+    }
+
+    private List<String> getKeyValueList(String attributes) {
+
+        String[] listArray = attributes.split("\\],|\\[|\\]");
+
+        List<String> list = new ArrayList<>(Arrays.asList(listArray));
+        list.removeAll(Collections.singleton(null));
+        list.removeAll(Collections.singleton(""));
+
+        return list;
     }
 
     /**
@@ -288,7 +382,8 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                 AmazonSNSConstants.ATTRIBUTE_VALUE, AmazonSNSConstants.LABEL,
                 AmazonSNSConstants.ACTION_NAME_MEMBER, AmazonSNSConstants.ACCOUNT_ID_MEMBER,
                 AmazonSNSConstants.MESSAGE_GROUP_ID, AmazonSNSConstants.MESSAGE_DEDUPLICATION_ID,
-                AmazonSNSConstants.PHONE_NUMBER, AmazonSNSConstants.MESSAGE_ATTRIBUTES};
+                AmazonSNSConstants.PHONE_NUMBER, AmazonSNSConstants.MESSAGE_ATTRIBUTES,
+                AmazonSNSConstants.ATTRIBUTES, AmazonSNSConstants.TAGS};
     }
 
     /**
@@ -425,6 +520,8 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
         map.put(AmazonSNSConstants.MESSAGE_GROUP_ID, AmazonSNSConstants.API_MESSAGE_GROUP_ID);
         map.put(AmazonSNSConstants.MESSAGE_DEDUPLICATION_ID, AmazonSNSConstants.API_MESSAGE_DEDUPLICATION_ID);
         map.put(AmazonSNSConstants.MESSAGE_ATTRIBUTES, AmazonSNSConstants.API_MESSAGE_ATTRIBUTES);
+        map.put(AmazonSNSConstants.ATTRIBUTES, AmazonSNSConstants.API_ATTRIBUTES);
+        map.put(AmazonSNSConstants.TAGS, AmazonSNSConstants.API_TAGS);
 
         // Header parameters
         map.put(AmazonSNSConstants.HOST, AmazonSNSConstants.API_HOST);

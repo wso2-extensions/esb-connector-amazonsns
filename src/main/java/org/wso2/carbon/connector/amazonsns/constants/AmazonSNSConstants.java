@@ -358,6 +358,11 @@ public class AmazonSNSConstants {
     public static final String NEW_LINE = "\n";
 
     /**
+     * Constant for Period.
+     */
+    public static final String PERIOD = ".";
+
+    /**
      * Constant for Comma.
      */
     public static final String COMMA = ",";
@@ -371,6 +376,11 @@ public class AmazonSNSConstants {
      * Constant for Forward Slash.
      */
     public static final String FORWARD_SLASH = "/";
+
+    /**
+     * Constant for Closed Square Bracket
+     */
+    public static final String CLOSED_SQUARE_BRACKET = "]";
 
     /**
      * Error code constant for Plus.
@@ -401,6 +411,21 @@ public class AmazonSNSConstants {
      * Error code constant for Url encoded asterisk.
      */
     public static final String URL_ENCODED_ASTERISK = "%2A";
+
+    /**
+     * Constant for MessageAttributes entry.
+     */
+    public static final String MESSAGE_ATTRIBUTES_ENTRY = "MessageAttributes.entry";
+
+    /**
+     * Constant for Attributes entry.
+     */
+    public static final String ATTRIBUTES_ENTRY = "Attributes.entry";
+
+    /**
+     * Constant for Tags member.
+     */
+    public static final String TAGS_MEMBER = "Tags.member";
 
     /**
      * Constant for Signature.
@@ -681,5 +706,25 @@ public class AmazonSNSConstants {
      * Constant for API messageAttributes.
      */
     public static final String API_MESSAGE_ATTRIBUTES = "MessageAttributes";
+
+    /**
+     * Constant for attributes.
+     */
+    public static final String ATTRIBUTES = "uri.var.attributes";
+
+    /**
+     * Constant for API attributes.
+     */
+    public static final String API_ATTRIBUTES = "Attributes";
+
+    /**
+     * Constant for tags.
+     */
+    public static final String TAGS = "uri.var.tags";
+
+    /**
+     * Constant for API tags.
+     */
+    public static final String API_TAGS = "Tags";
 
 }

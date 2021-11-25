@@ -17,9 +17,13 @@
 -->
 <template name="createTopic" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="name" description="The name of the topic you want to create."/>
+    <parameter name="attributes" description="A list of attributes with their corresponding values."/>
+    <parameter name="tags" description="The list of tags to add to a new topic."/>
     <sequence>
         <property name="uri.var.action" value="CreateTopic"/>
         <property name="uri.var.name" expression="$func:name"/>
+        <property name="uri.var.attributes" expression="$func:attributes"/>
+        <property name="uri.var.tags" expression="$func:tags"/>
         <class name="org.wso2.carbon.connector.amazonsns.auth.AmazonSNSAuthConnector"/>
         <!-- Add authorization and date header parameters -->
         <header name="Authorization" scope="transport" expression="get-property('uri.var.authorizationHeader')"/>
