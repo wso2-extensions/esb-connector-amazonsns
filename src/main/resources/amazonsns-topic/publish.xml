@@ -22,6 +22,14 @@
     <parameter name="subject" description="The subject line when the message is delivered to email endpoints."/>
     <parameter name="targetArn" description="Either TopicArn or EndpointArn. But not both."/>
     <parameter name="topicArn" description="The topic you want to publish to."/>
+    <parameter name="messageGroupId"
+               description="Tag that specifies that a message belongs to a specific message group."/>
+    <parameter name="messageDeduplicationId"
+               description="Token used for deduplication of sent messages"/>
+    <parameter name="phoneNumber"
+               description="The phone number to which you want to deliver an SMS message."/>
+    <parameter name="messageAttributes"
+               description="Structured metadata items about the message"/>
     <sequence>
         <property name="uri.var.action" value="Publish"/>
         <property name="uri.var.message" expression="$func:message"/>
@@ -29,6 +37,10 @@
         <property name="uri.var.subject" expression="$func:subject"/>
         <property name="uri.var.targetArn" expression="$func:targetArn"/>
         <property name="uri.var.topicArn" expression="$func:topicArn"/>
+        <property name="uri.var.messageGroupId" expression="$func:messageGroupId"/>
+        <property name="uri.var.messageDeduplicationId" expression="$func:messageDeduplicationId"/>
+        <property name="uri.var.phoneNumber" expression="$func:phoneNumber"/>
+        <property name="uri.var.messageAttributes" expression="$func:messageAttributes"/>
         <class name="org.wso2.carbon.connector.amazonsns.auth.AmazonSNSAuthConnector"/>
         <!-- Add authorization and date header parameters -->
         <header name="Authorization" scope="transport" expression="get-property('uri.var.authorizationHeader')"/>
