@@ -239,6 +239,32 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
         }
     }
 
+    /**
+     * Percent encode the message attributes according to RFC 3986.
+     *
+     * @param attributes List of message attributes.
+     */
+    private String percentEncode(String attributes) {
+
+        return attributes.replace(AmazonSNSConstants.SPACE, AmazonSNSConstants.URL_ENCODED_SPACE)
+                .replace(AmazonSNSConstants.EXCLAMATION, AmazonSNSConstants.URL_ENCODED_EXCLAMATION)
+                .replace(AmazonSNSConstants.HASH, AmazonSNSConstants.URL_ENCODED_HASH)
+                .replace(AmazonSNSConstants.DOLLAR, AmazonSNSConstants.URL_ENCODED_DOLLAR)
+                .replace(AmazonSNSConstants.AMPERSAND, AmazonSNSConstants.URL_ENCODED_AMPERSAND)
+                .replace(AmazonSNSConstants.APOSTROPHE, AmazonSNSConstants.URL_ENCODED_APOSTROPHE)
+                .replace(AmazonSNSConstants.OPEN_BRACKET, AmazonSNSConstants.URL_ENCODED_OPEN_BRACKET)
+                .replace(AmazonSNSConstants.CLOSE_BRACKET, AmazonSNSConstants.URL_ENCODED_CLOSE_BRACKET)
+                .replace(AmazonSNSConstants.COMMA, AmazonSNSConstants.URL_ENCODED_COMMA)
+                .replace(AmazonSNSConstants.FORWARD_SLASH, AmazonSNSConstants.URL_ENCODED_SLASH)
+                .replace(AmazonSNSConstants.COLON, AmazonSNSConstants.URL_ENCODED_COLON)
+                .replace(AmazonSNSConstants.SEMI_COLON, AmazonSNSConstants.URL_ENCODED_SEMICOLON)
+                .replace(AmazonSNSConstants.EQUAL, AmazonSNSConstants.URL_ENCODED_EQUAL)
+                .replace(AmazonSNSConstants.QUESTION, AmazonSNSConstants.URL_ENCODED_QUESTION)
+                .replace(AmazonSNSConstants.AT, AmazonSNSConstants.URL_ENCODED_AT)
+                .replace(AmazonSNSConstants.OPEN_SQUARE_BRACKET, AmazonSNSConstants.URL_ENCODED_OPEN_SQUARE_BRACKET)
+                .replace(AmazonSNSConstants.CLOSED_SQUARE_BRACKET, AmazonSNSConstants.URL_ENCODED_CLOSE_SQUARE_BRACKET);
+    }
+
     private String getAttributes(String attributes) {
 
         String attributesList = "";
@@ -321,7 +347,7 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                     .concat(AmazonSNSConstants.PERIOD).concat(String.valueOf(i+1)).concat(".Value.DataType=")
                     .concat(properties[1]).concat(AmazonSNSConstants.AMPERSAND)
                     .concat(AmazonSNSConstants.MESSAGE_ATTRIBUTES_ENTRY).concat(AmazonSNSConstants.PERIOD)
-                    .concat(String.valueOf(i+1)).concat(".Value.StringValue=").concat(properties[2])
+                    .concat(String.valueOf(i+1)).concat(".Value.StringValue=").concat(percentEncode(properties[2]))
                     .concat(AmazonSNSConstants.AMPERSAND);
         }
         return attributeListStr;
