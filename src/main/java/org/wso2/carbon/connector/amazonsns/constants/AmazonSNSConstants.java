@@ -390,7 +390,7 @@ public class AmazonSNSConstants {
     /**
      * Error code constant for Url encoded plus.
      */
-    public static final String URL_ENCODED_PLUS = "%20";
+    public static final String URL_ENCODED_PLUS = "%2B";
 
     /**
      * Error code constant for Url encoded tilt.
@@ -411,6 +411,36 @@ public class AmazonSNSConstants {
      * Error code constant for Url encoded asterisk.
      */
     public static final String URL_ENCODED_ASTERISK = "%2A";
+
+    /**
+     * Constant for percent encoded reserved characters.
+     */
+    public static final String URL_ENCODED_SPACE = "%20";
+    public static final String EXCLAMATION = "!";
+    public static final String URL_ENCODED_EXCLAMATION = "%21";
+    public static final String HASH = "#";
+    public static final String URL_ENCODED_HASH = "%23";
+    public static final String DOLLAR = "$";
+    public static final String URL_ENCODED_DOLLAR = "%24";
+    public static final String URL_ENCODED_AMPERSAND = "%26";
+    public static final String APOSTROPHE = "'";
+    public static final String URL_ENCODED_APOSTROPHE = "%27";
+    public static final String OPEN_BRACKET = "(";
+    public static final String URL_ENCODED_OPEN_BRACKET = "%28";
+    public static final String CLOSE_BRACKET = ")";
+    public static final String URL_ENCODED_CLOSE_BRACKET = "%29";
+    public static final String URL_ENCODED_COMMA = "%2C";
+    public static final String URL_ENCODED_SLASH = "%2F";
+    public static final String URL_ENCODED_COLON = "%3A";
+    public static final String URL_ENCODED_SEMICOLON = "%3B";
+    public static final String URL_ENCODED_EQUAL = "%3D";
+    public static final String QUESTION = "?";
+    public static final String URL_ENCODED_QUESTION = "%3F";
+    public static final String AT = "@";
+    public static final String URL_ENCODED_AT = "%40";
+    public static final String OPEN_SQUARE_BRACKET = "[";
+    public static final String URL_ENCODED_OPEN_SQUARE_BRACKET = "%5B";
+    public static final String URL_ENCODED_CLOSE_SQUARE_BRACKET = "%5D";
 
     /**
      * Constant for MessageAttributes entry.
