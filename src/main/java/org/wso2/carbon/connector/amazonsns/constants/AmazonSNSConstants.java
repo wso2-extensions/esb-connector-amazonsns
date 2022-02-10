@@ -390,7 +390,12 @@ public class AmazonSNSConstants {
     /**
      * Error code constant for Url encoded plus.
      */
-    public static final String URL_ENCODED_PLUS = "%2B";
+    public static final String URL_ENCODED_PLUS = "%20";
+
+    /**
+     * Error code constant for Url encoded plus sign for message attributes.
+     */
+    public static final String URL_ENCODED_PLUS_SIGN = "%2B";
 
     /**
      * Error code constant for Url encoded tilt.

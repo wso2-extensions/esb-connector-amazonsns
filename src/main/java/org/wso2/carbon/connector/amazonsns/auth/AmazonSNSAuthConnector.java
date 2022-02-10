@@ -262,7 +262,8 @@ public class AmazonSNSAuthConnector extends AbstractConnector {
                 .replace(AmazonSNSConstants.QUESTION, AmazonSNSConstants.URL_ENCODED_QUESTION)
                 .replace(AmazonSNSConstants.AT, AmazonSNSConstants.URL_ENCODED_AT)
                 .replace(AmazonSNSConstants.OPEN_SQUARE_BRACKET, AmazonSNSConstants.URL_ENCODED_OPEN_SQUARE_BRACKET)
-                .replace(AmazonSNSConstants.CLOSED_SQUARE_BRACKET, AmazonSNSConstants.URL_ENCODED_CLOSE_SQUARE_BRACKET);
+                .replace(AmazonSNSConstants.CLOSED_SQUARE_BRACKET, AmazonSNSConstants.URL_ENCODED_CLOSE_SQUARE_BRACKET)
+                .replace(AmazonSNSConstants.PLUS, AmazonSNSConstants.URL_ENCODED_PLUS_SIGN);
     }
 
     private String getAttributes(String attributes) {
