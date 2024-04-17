@@ -8,5 +8,37 @@
     "labels": [
         "Productivity-Tools"
     ],
-    "releases": []
+    "releases": [
+        {
+            "tagName": "1.0.4",
+            "products": [
+                "EI 6.6.0"
+            ]
+        },
+        {
+            "tagName": "1.0.3",
+            "products": [
+                "EI 6.6.0"
+            ]
+        },
+        {
+            "tagName": "1.0.2",
+            "products": [
+                "EI 6.6.0"
+            ]
+        },
+        {
+            "tagName": "1.0.1",
+            "products": [
+                "EI 6.4.0",
+                "ESB 4.9.0"
+            ]
+        },
+        {
+            "tagName": "1.0.0",
+            "products": [
+                "ESB 4.8.0"
+            ]
+        }
+    ]
 }
