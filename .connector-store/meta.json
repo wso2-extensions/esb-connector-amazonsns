@@ -6,39 +6,16 @@
     "description": "The Amazon SNS connector allows you to access the exposed API through the WSO2 ESB. Amazon Simple Notification Service (Amazon SNS) is a Web service that enables you to build distributed Web-enabled applications. Applications can use Amazon SNS to easily push real-time notification messages to interested subscribers over multiple delivery protocols. The connector uses the Amazon SNS REST API reference.",
     "status": "Active",
     "labels": [
-        "Productivity-Tools"
+        "connector"
     ],
     "releases": [
         {
-            "tagName": "1.0.4",
+            "tag_name": "v1.0.5",
             "products": [
-                "EI 6.6.0"
-            ]
-        },
-        {
-            "tagName": "1.0.3",
-            "products": [
-                "EI 6.6.0"
-            ]
-        },
-        {
-            "tagName": "1.0.2",
-            "products": [
-                "EI 6.6.0"
-            ]
-        },
-        {
-            "tagName": "1.0.1",
-            "products": [
-                "EI 6.4.0",
-                "ESB 4.9.0"
-            ]
-        },
-        {
-            "tagName": "1.0.0",
-            "products": [
-                "ESB 4.8.0"
-            ]
+                "EI 6.6.0",
+                "EI 6.5.0"
+            ],
+            "isHidden": false
         }
     ]
 }
