@@ -10,7 +10,7 @@
     ],
     "releases": [
         {
-            "tagName": "v1.0.5",
+            "tagName": "1.0.5",
             "products": [
                 "EI 6.6.0",
                 "EI 6.5.0"
